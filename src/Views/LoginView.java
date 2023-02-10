@@ -35,8 +35,8 @@ public class LoginView extends javax.swing.JFrame {
         button1 = new CustomComponents.Button();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        img_login = new javax.swing.JLabel();
+        title_login = new javax.swing.JLabel();
         btn_close = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -178,12 +178,12 @@ public class LoginView extends javax.swing.JFrame {
 
         background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 460));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LoginIcon.png"))); // NOI18N
-        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        img_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/LoginIcon.png"))); // NOI18N
+        img_login.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        jLabel5.setFont(new java.awt.Font("MV Boli", 1, 36)); // NOI18N
-        jLabel5.setText("MY LIBRARY");
-        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        title_login.setFont(new java.awt.Font("MV Boli", 1, 36)); // NOI18N
+        title_login.setText("MY LIBRARY");
+        title_login.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         btn_close.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         btn_close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -208,7 +208,7 @@ public class LoginView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 376, Short.MAX_VALUE)
+                .addComponent(img_login, javax.swing.GroupLayout.PREFERRED_SIZE, 376, Short.MAX_VALUE)
                 .addGap(27, 27, 27))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -216,7 +216,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(127, 127, 127)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(title_login, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -224,9 +224,9 @@ public class LoginView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btn_close)
                 .addGap(16, 16, 16)
-                .addComponent(jLabel5)
+                .addComponent(title_login)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(img_login, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(101, Short.MAX_VALUE))
         );
 
@@ -283,6 +283,7 @@ public class LoginView extends javax.swing.JFrame {
         }
         if (!login_validator.validate(txt_username.getText(), txt_password.getText())) {
             JOptionPane.showMessageDialog(this, "Datos incorrectos");
+            return;
         }
         MainView mv = new MainView(txt_username.getText());
         mv.setVisible(true);
@@ -349,15 +350,15 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel btn_close;
     private CustomComponents.Button button1;
     private javax.swing.JPanel header;
+    private javax.swing.JLabel img_login;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel title_login;
     private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
