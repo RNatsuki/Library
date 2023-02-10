@@ -15,10 +15,11 @@ public class MainView extends javax.swing.JFrame {
      */
     public MainView(String username) {
         initComponents();
+        showJpanel(new PrincipalView());
     }
 
     public static void showJpanel(JPanel p){
-        p.setSize(750,670);
+        p.setSize(750, 430);
         p.setLocation(0,0);
         
         content.removeAll();
@@ -32,12 +33,16 @@ public class MainView extends javax.swing.JFrame {
 
         background = new javax.swing.JPanel();
         menu = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btn_libros = new CustomComponents.KButton();
         btn_principal = new CustomComponents.KButton();
-        btn_principal1 = new CustomComponents.KButton();
-        PRESTAMOS = new CustomComponents.KButton();
-        btn_principal3 = new CustomComponents.KButton();
-        btn_principal2 = new CustomComponents.KButton();
+        btn_prestamos = new CustomComponents.KButton();
+        brn_devoluciones = new CustomComponents.KButton();
+        btn_usuarios = new CustomComponents.KButton();
+        title_login = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,17 +53,47 @@ public class MainView extends javax.swing.JFrame {
         menu.setBackground(new java.awt.Color(255, 255, 255));
         menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Books.png"))); // NOI18N
-        menu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 40, 50));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
+        menu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 40));
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/House.png"))); // NOI18N
+        menu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 30));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Books.png"))); // NOI18N
+        menu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, 40));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/devolucion.png"))); // NOI18N
+        menu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 40));
+
+        btn_libros.setForeground(new java.awt.Color(0, 0, 0));
+        btn_libros.setText("LIBROS");
+        btn_libros.setkBackGroundColor(new java.awt.Color(204, 204, 204));
+        btn_libros.setkEndColor(new java.awt.Color(204, 204, 204));
+        btn_libros.setkForeGround(new java.awt.Color(0, 0, 0));
+        btn_libros.setkHoverEndColor(new java.awt.Color(102, 153, 255));
+        btn_libros.setkHoverForeGround(new java.awt.Color(153, 204, 255));
+        btn_libros.setkHoverStartColor(new java.awt.Color(204, 204, 204));
+        btn_libros.setkSelectedColor(new java.awt.Color(204, 204, 204));
+        btn_libros.setkStartColor(new java.awt.Color(204, 204, 204));
+        btn_libros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_librosActionPerformed(evt);
+            }
+        });
+        menu.add(btn_libros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 220, -1));
+
+        btn_principal.setBackground(new java.awt.Color(0, 0, 255));
         btn_principal.setForeground(new java.awt.Color(0, 0, 0));
-        btn_principal.setText("LIBROS");
+        btn_principal.setText("PRINCIPAL");
+        btn_principal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_principal.setkBackGroundColor(new java.awt.Color(204, 204, 204));
         btn_principal.setkEndColor(new java.awt.Color(204, 204, 204));
         btn_principal.setkForeGround(new java.awt.Color(0, 0, 0));
+        btn_principal.setkHoverColor(new java.awt.Color(0, 0, 255));
         btn_principal.setkHoverEndColor(new java.awt.Color(102, 153, 255));
         btn_principal.setkHoverForeGround(new java.awt.Color(153, 204, 255));
         btn_principal.setkHoverStartColor(new java.awt.Color(204, 204, 204));
+        btn_principal.setkIndicatorColor(new java.awt.Color(0, 0, 255));
         btn_principal.setkSelectedColor(new java.awt.Color(204, 204, 204));
         btn_principal.setkStartColor(new java.awt.Color(204, 204, 204));
         btn_principal.addActionListener(new java.awt.event.ActionListener() {
@@ -66,76 +101,63 @@ public class MainView extends javax.swing.JFrame {
                 btn_principalActionPerformed(evt);
             }
         });
-        menu.add(btn_principal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 220, -1));
+        menu.add(btn_principal, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 70, 220, -1));
 
-        btn_principal1.setForeground(new java.awt.Color(0, 0, 0));
-        btn_principal1.setText("PRINCIPAL");
-        btn_principal1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_principal1.setkBackGroundColor(new java.awt.Color(204, 204, 204));
-        btn_principal1.setkEndColor(new java.awt.Color(204, 204, 204));
-        btn_principal1.setkForeGround(new java.awt.Color(0, 0, 0));
-        btn_principal1.setkHoverEndColor(new java.awt.Color(102, 153, 255));
-        btn_principal1.setkHoverForeGround(new java.awt.Color(153, 204, 255));
-        btn_principal1.setkHoverStartColor(new java.awt.Color(204, 204, 204));
-        btn_principal1.setkSelectedColor(new java.awt.Color(204, 204, 204));
-        btn_principal1.setkStartColor(new java.awt.Color(204, 204, 204));
-        btn_principal1.addActionListener(new java.awt.event.ActionListener() {
+        btn_prestamos.setForeground(new java.awt.Color(0, 0, 0));
+        btn_prestamos.setText("PRESTAMOS");
+        btn_prestamos.setkBackGroundColor(new java.awt.Color(204, 204, 204));
+        btn_prestamos.setkEndColor(new java.awt.Color(204, 204, 204));
+        btn_prestamos.setkForeGround(new java.awt.Color(0, 0, 0));
+        btn_prestamos.setkHoverEndColor(new java.awt.Color(102, 153, 255));
+        btn_prestamos.setkHoverForeGround(new java.awt.Color(153, 204, 255));
+        btn_prestamos.setkHoverStartColor(new java.awt.Color(204, 204, 204));
+        btn_prestamos.setkSelectedColor(new java.awt.Color(204, 204, 204));
+        btn_prestamos.setkStartColor(new java.awt.Color(204, 204, 204));
+        btn_prestamos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_principal1ActionPerformed(evt);
+                btn_prestamosActionPerformed(evt);
             }
         });
-        menu.add(btn_principal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 70, 220, -1));
+        menu.add(btn_prestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 220, -1));
 
-        PRESTAMOS.setForeground(new java.awt.Color(0, 0, 0));
-        PRESTAMOS.setText("PRESTAMOS");
-        PRESTAMOS.setkBackGroundColor(new java.awt.Color(204, 204, 204));
-        PRESTAMOS.setkEndColor(new java.awt.Color(204, 204, 204));
-        PRESTAMOS.setkForeGround(new java.awt.Color(0, 0, 0));
-        PRESTAMOS.setkHoverEndColor(new java.awt.Color(102, 153, 255));
-        PRESTAMOS.setkHoverForeGround(new java.awt.Color(153, 204, 255));
-        PRESTAMOS.setkHoverStartColor(new java.awt.Color(204, 204, 204));
-        PRESTAMOS.setkSelectedColor(new java.awt.Color(204, 204, 204));
-        PRESTAMOS.setkStartColor(new java.awt.Color(204, 204, 204));
-        PRESTAMOS.addActionListener(new java.awt.event.ActionListener() {
+        brn_devoluciones.setForeground(new java.awt.Color(0, 0, 0));
+        brn_devoluciones.setText("DEVOLUCIONES");
+        brn_devoluciones.setkBackGroundColor(new java.awt.Color(204, 204, 204));
+        brn_devoluciones.setkEndColor(new java.awt.Color(204, 204, 204));
+        brn_devoluciones.setkForeGround(new java.awt.Color(0, 0, 0));
+        brn_devoluciones.setkHoverEndColor(new java.awt.Color(102, 153, 255));
+        brn_devoluciones.setkHoverForeGround(new java.awt.Color(153, 204, 255));
+        brn_devoluciones.setkHoverStartColor(new java.awt.Color(204, 204, 204));
+        brn_devoluciones.setkSelectedColor(new java.awt.Color(204, 204, 204));
+        brn_devoluciones.setkStartColor(new java.awt.Color(204, 204, 204));
+        brn_devoluciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PRESTAMOSActionPerformed(evt);
+                brn_devolucionesActionPerformed(evt);
             }
         });
-        menu.add(PRESTAMOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 220, -1));
+        menu.add(brn_devoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 220, -1));
 
-        btn_principal3.setForeground(new java.awt.Color(0, 0, 0));
-        btn_principal3.setText("DEVOLUCIONES");
-        btn_principal3.setkBackGroundColor(new java.awt.Color(204, 204, 204));
-        btn_principal3.setkEndColor(new java.awt.Color(204, 204, 204));
-        btn_principal3.setkForeGround(new java.awt.Color(0, 0, 0));
-        btn_principal3.setkHoverEndColor(new java.awt.Color(102, 153, 255));
-        btn_principal3.setkHoverForeGround(new java.awt.Color(153, 204, 255));
-        btn_principal3.setkHoverStartColor(new java.awt.Color(204, 204, 204));
-        btn_principal3.setkSelectedColor(new java.awt.Color(204, 204, 204));
-        btn_principal3.setkStartColor(new java.awt.Color(204, 204, 204));
-        btn_principal3.addActionListener(new java.awt.event.ActionListener() {
+        btn_usuarios.setForeground(new java.awt.Color(0, 0, 0));
+        btn_usuarios.setText("USUARIOS");
+        btn_usuarios.setkBackGroundColor(new java.awt.Color(204, 204, 204));
+        btn_usuarios.setkEndColor(new java.awt.Color(204, 204, 204));
+        btn_usuarios.setkForeGround(new java.awt.Color(0, 0, 0));
+        btn_usuarios.setkHoverEndColor(new java.awt.Color(102, 153, 255));
+        btn_usuarios.setkHoverForeGround(new java.awt.Color(153, 204, 255));
+        btn_usuarios.setkHoverStartColor(new java.awt.Color(204, 204, 204));
+        btn_usuarios.setkSelectedColor(new java.awt.Color(204, 204, 204));
+        btn_usuarios.setkStartColor(new java.awt.Color(204, 204, 204));
+        btn_usuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_principal3ActionPerformed(evt);
+                btn_usuariosActionPerformed(evt);
             }
         });
-        menu.add(btn_principal3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 220, -1));
+        menu.add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 220, -1));
 
-        btn_principal2.setForeground(new java.awt.Color(0, 0, 0));
-        btn_principal2.setText("USUARIOS");
-        btn_principal2.setkBackGroundColor(new java.awt.Color(204, 204, 204));
-        btn_principal2.setkEndColor(new java.awt.Color(204, 204, 204));
-        btn_principal2.setkForeGround(new java.awt.Color(0, 0, 0));
-        btn_principal2.setkHoverEndColor(new java.awt.Color(102, 153, 255));
-        btn_principal2.setkHoverForeGround(new java.awt.Color(153, 204, 255));
-        btn_principal2.setkHoverStartColor(new java.awt.Color(204, 204, 204));
-        btn_principal2.setkSelectedColor(new java.awt.Color(204, 204, 204));
-        btn_principal2.setkStartColor(new java.awt.Color(204, 204, 204));
-        btn_principal2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_principal2ActionPerformed(evt);
-            }
-        });
-        menu.add(btn_principal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 220, -1));
+        title_login.setFont(new java.awt.Font("Press Start 2P", 1, 12)); // NOI18N
+        title_login.setText("MY LIBRARY");
+        title_login.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        menu.add(title_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         background.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 450));
 
@@ -157,36 +179,40 @@ public class MainView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_librosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_librosActionPerformed
+       
+    }//GEN-LAST:event_btn_librosActionPerformed
+
     private void btn_principalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_principalActionPerformed
-        showJpanel(new PrincipalView());
+         showJpanel(new PrincipalView());
     }//GEN-LAST:event_btn_principalActionPerformed
 
-    private void btn_principal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_principal1ActionPerformed
+    private void btn_prestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_prestamosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_principal1ActionPerformed
+    }//GEN-LAST:event_btn_prestamosActionPerformed
 
-    private void PRESTAMOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PRESTAMOSActionPerformed
+    private void brn_devolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brn_devolucionesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PRESTAMOSActionPerformed
+    }//GEN-LAST:event_brn_devolucionesActionPerformed
 
-    private void btn_principal3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_principal3ActionPerformed
+    private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_principal3ActionPerformed
-
-    private void btn_principal2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_principal2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_principal2ActionPerformed
+    }//GEN-LAST:event_btn_usuariosActionPerformed
 
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private CustomComponents.KButton PRESTAMOS;
     private javax.swing.JPanel background;
+    private CustomComponents.KButton brn_devoluciones;
+    private CustomComponents.KButton btn_libros;
+    private CustomComponents.KButton btn_prestamos;
     private CustomComponents.KButton btn_principal;
-    private CustomComponents.KButton btn_principal1;
-    private CustomComponents.KButton btn_principal2;
-    private CustomComponents.KButton btn_principal3;
+    private CustomComponents.KButton btn_usuarios;
     private static javax.swing.JPanel content;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel menu;
+    private javax.swing.JLabel title_login;
     // End of variables declaration//GEN-END:variables
 }

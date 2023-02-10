@@ -26,6 +26,7 @@ public class LoginValidator {
     }
     
     public boolean validate(String username, String password){
+        
         return "admin".equals(username) && "admin".equals(password);
         
     }

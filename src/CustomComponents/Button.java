@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author RAVEN
+ * @author ibarra
  */
 public class Button extends JButton {
 
