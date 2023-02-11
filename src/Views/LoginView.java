@@ -1,6 +1,6 @@
 package Views;
 
-import Middlewares.LoginValidator;
+import Middlewares.FieldsValidator;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  */
 public class LoginView extends javax.swing.JFrame {
 
-    private final LoginValidator login_validator = new LoginValidator();
+    private final FieldsValidator login_validator = new FieldsValidator();
 
     private int Xmouse;
     private int Ymouse;

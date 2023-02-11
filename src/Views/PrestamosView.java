@@ -15,6 +15,7 @@ public class PrestamosView extends javax.swing.JPanel {
      */
     public PrestamosView() {
         initComponents();
+        
     }
 
     /**

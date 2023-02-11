@@ -15,6 +15,17 @@ public class Book {
     String LANGUAJE;
     int STOCK;
 
+    public Book(int BOOK_ID, String TITLE, int PUBLISHED_YEAR, String AUTHOR, String CATEGORY, int EDITION, String LANGUAJE) {
+        this.BOOK_ID = BOOK_ID;
+        this.TITLE = TITLE;
+        this.PUBLISHED_YEAR = PUBLISHED_YEAR;
+        this.AUTHOR = AUTHOR;
+        this.CATEGORY = CATEGORY;
+        this.EDITION = EDITION;
+        this.LANGUAJE = LANGUAJE;
+        
+    }
+    
     public Book(int BOOK_ID, String TITLE, int PUBLISHED_YEAR, String AUTHOR, String CATEGORY, int EDITION, String LANGUAJE, int STOCK) {
         this.BOOK_ID = BOOK_ID;
         this.TITLE = TITLE;
@@ -24,6 +35,7 @@ public class Book {
         this.EDITION = EDITION;
         this.LANGUAJE = LANGUAJE;
         this.STOCK = STOCK;
+        
     }
     public int getBOOK_ID() {
         return BOOK_ID;

@@ -16,10 +16,11 @@ public class MainView extends javax.swing.JFrame {
     public MainView(String username) {
         initComponents();
         showJpanel(new PrincipalView());
+         this.setLocationRelativeTo(null);
     }
 
     public static void showJpanel(JPanel p){
-        p.setSize(750, 430);
+        p.setSize(650, 430);
         p.setLocation(0,0);
         
         content.removeAll();
@@ -37,6 +38,7 @@ public class MainView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         btn_libros = new CustomComponents.KButton();
         btn_principal = new CustomComponents.KButton();
         btn_prestamos = new CustomComponents.KButton();
@@ -53,8 +55,8 @@ public class MainView extends javax.swing.JFrame {
         menu.setBackground(new java.awt.Color(255, 255, 255));
         menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        menu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 40));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book_plus.png"))); // NOI18N
+        menu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, 40));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/House.png"))); // NOI18N
         menu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 30));
@@ -64,6 +66,9 @@ public class MainView extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/devolucion.png"))); // NOI18N
         menu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 40));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
+        menu.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 40));
 
         btn_libros.setForeground(new java.awt.Color(0, 0, 0));
         btn_libros.setText("LIBROS");
@@ -180,7 +185,7 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_librosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_librosActionPerformed
-       
+        showJpanel(new BooksView());
     }//GEN-LAST:event_btn_librosActionPerformed
 
     private void btn_principalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_principalActionPerformed
@@ -212,6 +217,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel title_login;
     // End of variables declaration//GEN-END:variables
