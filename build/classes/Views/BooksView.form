@@ -100,7 +100,7 @@
                       <Data value="ES"/>
                     </Column>
                     <Column editable="true" title="EXISTENCIA" type="java.lang.Object">
-                      <Data value="0"/>
+                      <Data value="1"/>
                     </Column>
                   </Table>
                 </Property>
@@ -166,6 +166,9 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_menu_addActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

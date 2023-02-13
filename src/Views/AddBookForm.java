@@ -7,6 +7,12 @@ package Views;
 import Middlewares.FieldsValidator;
 import Model.Book;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +22,8 @@ import javax.swing.JOptionPane;
 public class AddBookForm extends javax.swing.JFrame {
 
     FieldsValidator validator = new FieldsValidator();
+    String origin_path = "";
+    String destination_path = "";
 
     public AddBookForm() {
         initComponents();
@@ -33,6 +41,7 @@ public class AddBookForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         background = new javax.swing.JPanel();
         book_id = new javax.swing.JTextField();
         book_title = new javax.swing.JTextField();
@@ -50,9 +59,15 @@ public class AddBookForm extends javax.swing.JFrame {
         lbl_language = new javax.swing.JLabel();
         btn_submit = new CustomComponents.Button();
         jLabel1 = new javax.swing.JLabel();
+        btn_pdf_selector = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("AGREGA TU LIBRO");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -109,6 +124,13 @@ public class AddBookForm extends javax.swing.JFrame {
 
         jLabel1.setText("AGREGA TU LIBRO");
 
+        btn_pdf_selector.setText("Agregar PDF");
+        btn_pdf_selector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pdf_selectorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,7 +148,8 @@ public class AddBookForm extends javax.swing.JFrame {
                                 .addComponent(lbl_category, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lbl_author, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                                 .addComponent(lbl_edition, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbl_language, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(lbl_language, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btn_pdf_selector))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(book_id, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +202,9 @@ public class AddBookForm extends javax.swing.JFrame {
                     .addComponent(book_language, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_language))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_pdf_selector))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -207,7 +232,8 @@ public class AddBookForm extends javax.swing.JFrame {
             return;
         }
 
-        Book book = new Book(
+        Book book;
+        book = new Book(
                 Integer.parseInt(book_id.getText()),
                 book_title.getText(),
                 Integer.parseInt(book_year.getText()),
@@ -232,6 +258,19 @@ public class AddBookForm extends javax.swing.JFrame {
             1
         });
 
+        if (!origin_path.equals("") && !destination_path.equals("")) {
+            try {
+                Files.copy(Paths.get(origin_path), Paths.get(destination_path), StandardCopyOption.REPLACE_EXISTING);
+                origin_path = "";
+                destination_path = "";
+                btn_pdf_selector.setText("Agregar PDF");
+            } catch (Exception e) {
+                System.out.println("No se pudo copiar el archivo");
+                System.out.println(e.getMessage());
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctament´e");
 
     }//GEN-LAST:event_btn_submitActionPerformed
 
@@ -259,6 +298,39 @@ public class AddBookForm extends javax.swing.JFrame {
         onlyNumbers(evt);
     }//GEN-LAST:event_book_editionKeyTyped
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        BooksView.btn_menu_add.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btn_pdf_selectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pdf_selectorActionPerformed
+        /*if(rd_pdf.isSelected()){
+            JFileChooser filechoose = new JFileChooser();
+            int option = filechoose.showOpenDialog(this);
+            if (option == JFileChooser.APPROVE_OPTION) {
+                String origin_path = filechoose.getSelectedFile().getAbsolutePath();
+                String destination_path = BooksView.books_path + book_id.getText() + ".pdf";
+
+               try {
+                Files.copy(Paths.get(origin_path), Paths.get(destination_path), StandardCopyOption.REPLACE_EXISTING);
+                
+               } catch (Exception e) {
+                   System.out.println("No se pudo copiar el archivo");
+                   System.out.println(e.getMessage());
+               }
+
+            }
+        }
+         */
+        JFileChooser filechoose = new JFileChooser();
+        int option = filechoose.showOpenDialog(this);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            origin_path = filechoose.getSelectedFile().getAbsolutePath();
+            destination_path = BooksView.books_path + book_id.getText() + ".pdf";
+            btn_pdf_selector.setText("Tengo la info ;)");
+        }
+
+    }//GEN-LAST:event_btn_pdf_selectorActionPerformed
+
     private void onlyNumbers(KeyEvent evt) {
         char c = evt.getKeyChar();
         if (!((c >= '0') && (c <= '9')
@@ -272,22 +344,22 @@ public class AddBookForm extends javax.swing.JFrame {
     int getStockById(int id) {
         int stock = 0;
         for (int i = 0; i < BooksView.model_table_books.getRowCount(); i++) {
-            
+
             try {
-               
+
                 int id_table = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 0).toString());
-                
+
                 if (id == id_table) {
-                     stock = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 7).toString());
+                    stock = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 7).toString());
                 }
-                
+
                 System.out.println(stock);
             } catch (NullPointerException e) {
                 return 0;
             }
 
         }
-        
+
         return stock;
 
     }
@@ -305,7 +377,9 @@ public class AddBookForm extends javax.swing.JFrame {
     private javax.swing.JTextField book_language;
     private javax.swing.JTextField book_title;
     private javax.swing.JTextField book_year;
+    private javax.swing.JButton btn_pdf_selector;
     private CustomComponents.Button btn_submit;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_Id;

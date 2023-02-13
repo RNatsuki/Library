@@ -248,7 +248,7 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_usernameMouseClicked
-
+        
         if (txt_username.getText().equals("Ingrese su nombre de usuario")) {
             txt_username.setText("");
             txt_username.setForeground(Color.BLACK);

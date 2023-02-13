@@ -23,7 +23,7 @@ import javax.swing.JButton;
 
 /**
  *
- * @auauthor KeepToo
+ * @author Ibarra 
  * This class extends JButton and with added features to it
  */
 public class KButton extends JButton {

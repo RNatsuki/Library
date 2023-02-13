@@ -14,7 +14,8 @@ public class Book {
     int EDITION;
     String LANGUAJE;
     int STOCK;
-
+    boolean isDigital;
+    
     public Book(int BOOK_ID, String TITLE, int PUBLISHED_YEAR, String AUTHOR, String CATEGORY, int EDITION, String LANGUAJE) {
         this.BOOK_ID = BOOK_ID;
         this.TITLE = TITLE;
@@ -100,8 +101,6 @@ public class Book {
     public void setSTOCK(int STOCK) {
         this.STOCK = STOCK;
     }
-    
-    
-   
+
    
 }

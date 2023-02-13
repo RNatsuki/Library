@@ -8,7 +8,6 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,12 +19,16 @@ import javax.swing.table.DefaultTableModel;
 public class BooksView extends javax.swing.JPanel {
 
     public static DefaultTableModel model_table_books;
-
+    
+    public static String user_name = System.getProperty("user.name");
+    public static String books_path = "C:\\Users\\" + user_name + "\\Documents\\BookLIB\\";
     public BooksView() {
         initComponents();
         this.setLocation(WIDTH, WIDTH);
         model_table_books = (DefaultTableModel) this.tbl_books.getModel();
         initializePopUpMenu();
+        
+        
     }
 
     /**
@@ -46,7 +49,7 @@ public class BooksView extends javax.swing.JPanel {
 
         tbl_books.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "El Principito", "2016", "Antoine de Saint-Exupery", "Ficcion", "1", "ES", "0"}
+                {"1", "El Principito", "2016", "Antoine de Saint-Exupery", "Ficcion", "1", "ES", "1"}
             },
             new String [] {
                 "ID LIBRO", "TITULO", "AÑO PUBLICACION", "AUTOR", "CATEGORIA", "EDICION", "IDIOMA", "EXISTENCIA"
@@ -99,6 +102,7 @@ public class BooksView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_menu_addActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_menu_addActionPerformed
+        btn_menu_add.setEnabled(false);
         AddBookForm addForm = new AddBookForm();
         addForm.setVisible(true);
     }// GEN-LAST:event_btn_menu_addActionPerformed
@@ -117,7 +121,7 @@ public class BooksView extends javax.swing.JPanel {
                     int book_id_selected = Integer
                             .parseInt(tbl_books.getValueAt(tbl_books.getSelectedRow(), 0).toString());
 
-                    File path = new File("C:\\Users\\Ibarra\\Documents\\NetBeansProjects\\Library\\src\\\\Book_DATABASE\\"
+                    File path = new File("C:\\Users\\"+user_name+"\\Documents\\BookLib\\"
                             + book_id_selected + ".pdf");
                     if (!path.exists()) {
                         JOptionPane.showMessageDialog(null, "No se encontro el archivo");
@@ -136,7 +140,7 @@ public class BooksView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
-    private CustomComponents.KButton btn_menu_add;
+    public static CustomComponents.KButton btn_menu_add;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu pp_menu_table;
     public javax.swing.JTable tbl_books;
