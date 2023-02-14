@@ -11,9 +11,23 @@ import javax.swing.JTextField;
  */
 public class FieldsValidator {
     
+    /*
+        Definiciones de objetos de usuarios para la autenticacion
+        admin es para el administrador
+        user para el usuario normal
+        def para un usuario no válido
+    */
+    
     User admin = new User("admin", "admin", "admin");
     User user = new User("guest", "guest", "user");
     User def = new User("", "");
+    
+    
+    /*
+        Método para validar
+        los campos en blanco
+        ingresado
+    */
     public boolean validateBlank(Object[] j){
         for (Object j1 : j) {
             if (j1.getClass().getSimpleName().equals("JPasswordField")) {
@@ -34,6 +48,12 @@ public class FieldsValidator {
         
     }
     
+    
+    /*
+        Este metodo retorna el usuario dado por usuario y contraseña
+        como no existe una base de datos todo esta siempre en tiempo
+        de ejecución
+    */
     
     public User getUser(String username,String password){
         if (username.equals("admin") && password.equals("admin")) return admin;

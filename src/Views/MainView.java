@@ -10,6 +10,7 @@ import javax.swing.JPanel;
  */
 public class MainView extends javax.swing.JFrame {
 
+    //Attributo para saber si el usuario es adminstrador del sistema
     boolean isAdmin;
 
     public MainView(String username, boolean isAdmin) {
@@ -207,6 +208,8 @@ public class MainView extends javax.swing.JFrame {
 
     private void btn_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuariosMouseClicked
         if (!isAdmin){JOptionPane.showMessageDialog(this, "No tienes Permiso Para Ver Ésto");return;}
+        showJpanel(new UsersView());
+        
     }//GEN-LAST:event_btn_usuariosMouseClicked
 
 

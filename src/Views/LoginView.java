@@ -361,15 +361,6 @@ public class LoginView extends javax.swing.JFrame {
     void validateFields() {
         Object[] fields = {txt_password, txt_username};
 
-        /*if (!login_validator.validateBlank(fields)) {
-            JOptionPane.showMessageDialog(this, "Rellene todos los campos");
-            return;
-        }
-
-        if (!login_validator.validate(txt_username.getText(), txt_password.getText())) {
-            JOptionPane.showMessageDialog(this, "Datos incorrectos");
-            return;
-        }*/
         User trying = login_validator.getUser(txt_username.getText(), txt_password.getText());
 
         if (trying.getRole() == null) {

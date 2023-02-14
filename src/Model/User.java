@@ -9,6 +9,12 @@ package Model;
  * @author Ibarra
  */
 public class User {
+    
+    
+    /*
+    @Class Attributes
+    */
+    
     String username;
     String password;
     String role = null;
@@ -23,9 +29,6 @@ public class User {
         this.username = username;
         this.password = password;
     }
-
-    
-    
     
     public String getUsername() {
         return username;
