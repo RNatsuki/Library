@@ -19,14 +19,15 @@ import javax.swing.table.DefaultTableModel;
 public class BooksView extends javax.swing.JPanel {
 
     public static DefaultTableModel model_table_books;
-    
+    boolean isAdmin;
     public static String user_name = System.getProperty("user.name");
     public static String books_path = "C:\\Users\\" + user_name + "\\Documents\\BookLIB\\";
-    public BooksView() {
+    public BooksView(boolean isAdmin) {
         initComponents();
         this.setLocation(WIDTH, WIDTH);
         model_table_books = (DefaultTableModel) this.tbl_books.getModel();
         initializePopUpMenu();
+        this.isAdmin = isAdmin;
         
         
     }
@@ -102,6 +103,8 @@ public class BooksView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_menu_addActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_menu_addActionPerformed
+        if (!isAdmin){JOptionPane.showMessageDialog(this, "No tienes Permiso Para Ver Ésto");return;}
+        
         btn_menu_add.setEnabled(false);
         AddBookForm addForm = new AddBookForm();
         addForm.setVisible(true);

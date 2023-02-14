@@ -1,7 +1,7 @@
-
 package Views;
 
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -10,25 +10,30 @@ import javax.swing.JPanel;
  */
 public class MainView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainView
-     */
-    public MainView(String username) {
+    boolean isAdmin;
+
+    public MainView(String username, boolean isAdmin) {
         initComponents();
         showJpanel(new PrincipalView());
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        this.isAdmin = isAdmin;
+        if (!isAdmin) {
+            this.btn_prestamos.setEnabled(false);
+            this.btn_devoluciones.setEnabled(false);
+            this.btn_usuarios.setEnabled(false);
+        }
     }
 
-    public static void showJpanel(JPanel p){
+    public static void showJpanel(JPanel p) {
         p.setSize(650, 430);
-        p.setLocation(0,0);
-        
+        p.setLocation(0, 0);
+
         content.removeAll();
-        content.add(p,BorderLayout.CENTER);
+        content.add(p, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -42,7 +47,7 @@ public class MainView extends javax.swing.JFrame {
         btn_libros = new CustomComponents.KButton();
         btn_principal = new CustomComponents.KButton();
         btn_prestamos = new CustomComponents.KButton();
-        brn_devoluciones = new CustomComponents.KButton();
+        btn_devoluciones = new CustomComponents.KButton();
         btn_usuarios = new CustomComponents.KButton();
         title_login = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
@@ -118,29 +123,29 @@ public class MainView extends javax.swing.JFrame {
         btn_prestamos.setkHoverStartColor(new java.awt.Color(204, 204, 204));
         btn_prestamos.setkSelectedColor(new java.awt.Color(204, 204, 204));
         btn_prestamos.setkStartColor(new java.awt.Color(204, 204, 204));
-        btn_prestamos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_prestamosActionPerformed(evt);
+        btn_prestamos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_prestamosMouseClicked(evt);
             }
         });
         menu.add(btn_prestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 220, -1));
 
-        brn_devoluciones.setForeground(new java.awt.Color(0, 0, 0));
-        brn_devoluciones.setText("DEVOLUCIONES");
-        brn_devoluciones.setkBackGroundColor(new java.awt.Color(204, 204, 204));
-        brn_devoluciones.setkEndColor(new java.awt.Color(204, 204, 204));
-        brn_devoluciones.setkForeGround(new java.awt.Color(0, 0, 0));
-        brn_devoluciones.setkHoverEndColor(new java.awt.Color(102, 153, 255));
-        brn_devoluciones.setkHoverForeGround(new java.awt.Color(153, 204, 255));
-        brn_devoluciones.setkHoverStartColor(new java.awt.Color(204, 204, 204));
-        brn_devoluciones.setkSelectedColor(new java.awt.Color(204, 204, 204));
-        brn_devoluciones.setkStartColor(new java.awt.Color(204, 204, 204));
-        brn_devoluciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brn_devolucionesActionPerformed(evt);
+        btn_devoluciones.setForeground(new java.awt.Color(0, 0, 0));
+        btn_devoluciones.setText("DEVOLUCIONES");
+        btn_devoluciones.setkBackGroundColor(new java.awt.Color(204, 204, 204));
+        btn_devoluciones.setkEndColor(new java.awt.Color(204, 204, 204));
+        btn_devoluciones.setkForeGround(new java.awt.Color(0, 0, 0));
+        btn_devoluciones.setkHoverEndColor(new java.awt.Color(102, 153, 255));
+        btn_devoluciones.setkHoverForeGround(new java.awt.Color(153, 204, 255));
+        btn_devoluciones.setkHoverStartColor(new java.awt.Color(204, 204, 204));
+        btn_devoluciones.setkSelectedColor(new java.awt.Color(204, 204, 204));
+        btn_devoluciones.setkStartColor(new java.awt.Color(204, 204, 204));
+        btn_devoluciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_devolucionesMouseClicked(evt);
             }
         });
-        menu.add(brn_devoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 220, -1));
+        menu.add(btn_devoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 220, -1));
 
         btn_usuarios.setForeground(new java.awt.Color(0, 0, 0));
         btn_usuarios.setText("USUARIOS");
@@ -152,9 +157,9 @@ public class MainView extends javax.swing.JFrame {
         btn_usuarios.setkHoverStartColor(new java.awt.Color(204, 204, 204));
         btn_usuarios.setkSelectedColor(new java.awt.Color(204, 204, 204));
         btn_usuarios.setkStartColor(new java.awt.Color(204, 204, 204));
-        btn_usuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usuariosActionPerformed(evt);
+        btn_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_usuariosMouseClicked(evt);
             }
         });
         menu.add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 220, -1));
@@ -185,29 +190,29 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_librosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_librosActionPerformed
-        showJpanel(new BooksView());
+        showJpanel(new BooksView(this.isAdmin));
     }//GEN-LAST:event_btn_librosActionPerformed
 
     private void btn_principalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_principalActionPerformed
-         showJpanel(new PrincipalView());
+        showJpanel(new PrincipalView());
     }//GEN-LAST:event_btn_principalActionPerformed
 
-    private void btn_prestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_prestamosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_prestamosActionPerformed
+    private void btn_prestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_prestamosMouseClicked
+        if (!isAdmin){JOptionPane.showMessageDialog(this, "No tienes Permiso Para Ver Ésto");return;}
+    }//GEN-LAST:event_btn_prestamosMouseClicked
 
-    private void brn_devolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brn_devolucionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_brn_devolucionesActionPerformed
+    private void btn_devolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_devolucionesMouseClicked
+        if (!isAdmin){JOptionPane.showMessageDialog(this, "No tienes Permiso Para Ver Ésto");return;}
+    }//GEN-LAST:event_btn_devolucionesMouseClicked
 
-    private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_usuariosActionPerformed
+    private void btn_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuariosMouseClicked
+        if (!isAdmin){JOptionPane.showMessageDialog(this, "No tienes Permiso Para Ver Ésto");return;}
+    }//GEN-LAST:event_btn_usuariosMouseClicked
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
-    private CustomComponents.KButton brn_devoluciones;
+    private CustomComponents.KButton btn_devoluciones;
     private CustomComponents.KButton btn_libros;
     private CustomComponents.KButton btn_prestamos;
     private CustomComponents.KButton btn_principal;

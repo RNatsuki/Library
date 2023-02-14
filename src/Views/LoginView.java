@@ -1,6 +1,7 @@
 package Views;
 
 import Middlewares.FieldsValidator;
+import Model.User;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -248,7 +249,7 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_usernameMouseClicked
-        
+
         if (txt_username.getText().equals("Ingrese su nombre de usuario")) {
             txt_username.setText("");
             txt_username.setForeground(Color.BLACK);
@@ -265,7 +266,6 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_usernameMouseClicked
 
     private void txt_passwordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_passwordMouseClicked
-
 
         if (String.valueOf(txt_password.getPassword()).equals("********")) {
             txt_password.setText("");
@@ -285,7 +285,7 @@ public class LoginView extends javax.swing.JFrame {
     private void txt_usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_usernameFocusGained
         if (txt_username.getText().equals("Ingrese su nombre de usuario")) {
             txt_username.setText("");
-        }else{
+        } else {
             return;
         }
         if (String.valueOf(txt_password.getPassword()).isEmpty()) {
@@ -361,7 +361,7 @@ public class LoginView extends javax.swing.JFrame {
     void validateFields() {
         Object[] fields = {txt_password, txt_username};
 
-        if (!login_validator.validateBlank(fields)) {
+        /*if (!login_validator.validateBlank(fields)) {
             JOptionPane.showMessageDialog(this, "Rellene todos los campos");
             return;
         }
@@ -369,11 +369,26 @@ public class LoginView extends javax.swing.JFrame {
         if (!login_validator.validate(txt_username.getText(), txt_password.getText())) {
             JOptionPane.showMessageDialog(this, "Datos incorrectos");
             return;
+        }*/
+        User trying = login_validator.getUser(txt_username.getText(), txt_password.getText());
+
+        if (trying.getRole() == null) {
+            System.out.println("Credenciales Incorrectas");
+            return;
         }
 
-        MainView mv = new MainView(txt_username.getText());
-        mv.setVisible(true);
-        this.dispose();
+        if (!trying.isAdmin()) {
+            MainView mv = new MainView(txt_username.getText(),false);
+            mv.setVisible(true);
+            this.dispose();
+        }
+        
+        if (trying.isAdmin()) {
+            MainView mv = new MainView(txt_username.getText(),true);
+            mv.setVisible(true);
+            this.dispose();
+        }
+
     }
 
 
