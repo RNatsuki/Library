@@ -52,6 +52,9 @@ public class MainView extends javax.swing.JFrame {
         btn_usuarios = new CustomComponents.KButton();
         title_login = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        menu_logOut = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -187,6 +190,20 @@ public class MainView extends javax.swing.JFrame {
 
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 450));
 
+        jMenu1.setText("Menu");
+
+        menu_logOut.setText("Cerrar Sesión");
+        menu_logOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_logOutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menu_logOut);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -212,6 +229,12 @@ public class MainView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_usuariosMouseClicked
 
+    private void menu_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_logOutActionPerformed
+        LoginView lv = new LoginView();
+        lv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menu_logOutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
@@ -226,7 +249,10 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel menu;
+    private javax.swing.JMenuItem menu_logOut;
     private javax.swing.JLabel title_login;
     // End of variables declaration//GEN-END:variables
 }

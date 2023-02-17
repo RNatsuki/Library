@@ -30,7 +30,7 @@ public class UsersView extends javax.swing.JPanel {
         background = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_users = new javax.swing.JTable();
         kButton1 = new CustomComponents.KButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -38,7 +38,7 @@ public class UsersView extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Press Start 2P", 0, 8)); // NOI18N
         jLabel5.setText("Agrega Un Usuario:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_users.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -46,12 +46,17 @@ public class UsersView extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Num. Control", "Nombre", "Contraseña", "Edad"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbl_users);
 
         kButton1.setText("Crear Un Usuario");
+        kButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
@@ -83,12 +88,17 @@ public class UsersView extends javax.swing.JPanel {
         add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 400));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void kButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kButton1ActionPerformed
+      AddUsersForm form = new AddUsersForm();
+      form.setVisible(true);
+    }//GEN-LAST:event_kButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private CustomComponents.KButton kButton1;
+    public static javax.swing.JTable tbl_users;
     // End of variables declaration//GEN-END:variables
 }

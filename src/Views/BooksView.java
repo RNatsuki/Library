@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Ibarra
  */
 public class BooksView extends javax.swing.JPanel {
+    
 
     public static DefaultTableModel model_table_books;
     boolean isAdmin;

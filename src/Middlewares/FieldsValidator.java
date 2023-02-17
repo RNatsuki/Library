@@ -2,6 +2,7 @@
 package Middlewares;
 
 import Model.User;
+import java.awt.event.KeyEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -28,7 +29,7 @@ public class FieldsValidator {
         los campos en blanco
         ingresado
     */
-    public boolean validateBlank(Object[] j){
+    public boolean validateBlank(Object[] j){  
         for (Object j1 : j) {
             if (j1.getClass().getSimpleName().equals("JPasswordField")) {
                 JPasswordField pass = (JPasswordField) j1;
@@ -39,6 +40,7 @@ public class FieldsValidator {
                 if (txt.getText().equals("Ingrese su nombre de usuario") || txt.getText().equals("")) return false;
             }
         }
+        
         return true;
     }
     
@@ -61,6 +63,26 @@ public class FieldsValidator {
     
         return def;
     }
+    
+    public void onlyNumbers(KeyEvent evt) {
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9')|| (c == KeyEvent.VK_BACK_SPACE)|| (c == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+        
+    }
+    
+    public void onlyLetters(KeyEvent evt){
+        char c = evt.getKeyChar();
+        //permitor letra y espacios
+
+        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE) || (c == KeyEvent.VK_SPACE))) {
+            evt.consume();
+        }
+        
+
+    }
+    
     
     
 }

@@ -248,7 +248,8 @@ public class AddBookForm extends javax.swing.JFrame {
             return;
         }
 
-        BooksView.model_table_books.addRow(new Object[]{book_id.getText(),
+        BooksView.model_table_books.addRow(new Object[]
+        {book_id.getText(),
             book_title.getText(),
             book_year.getText(),
             book_author.getText(),
@@ -275,7 +276,7 @@ public class AddBookForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_submitActionPerformed
 
     private void book_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_idKeyTyped
-        onlyNumbers(evt);
+        validator.onlyNumbers(evt);
     }//GEN-LAST:event_book_idKeyTyped
 
     private void book_yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_book_yearActionPerformed
@@ -283,7 +284,7 @@ public class AddBookForm extends javax.swing.JFrame {
     }//GEN-LAST:event_book_yearActionPerformed
 
     private void book_yearKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_yearKeyTyped
-        onlyNumbers(evt);
+        validator.onlyNumbers(evt);
         int year = this.book_year.getText().length();
 
         if (year > 3) {
@@ -295,7 +296,7 @@ public class AddBookForm extends javax.swing.JFrame {
     }//GEN-LAST:event_book_yearKeyTyped
 
     private void book_editionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_editionKeyTyped
-        onlyNumbers(evt);
+        validator.onlyNumbers(evt);
     }//GEN-LAST:event_book_editionKeyTyped
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -331,15 +332,7 @@ public class AddBookForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_pdf_selectorActionPerformed
 
-    private void onlyNumbers(KeyEvent evt) {
-        char c = evt.getKeyChar();
-        if (!((c >= '0') && (c <= '9')
-                || (c == KeyEvent.VK_BACK_SPACE)
-                || (c == KeyEvent.VK_DELETE))) {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }
+    
 
     int getStockById(int id) {
         int stock = 0;
