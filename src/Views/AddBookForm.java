@@ -6,8 +6,6 @@ package Views;
 
 import Middlewares.FieldsValidator;
 import Model.Book;
-import java.awt.event.KeyEvent;
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -41,7 +39,6 @@ public class AddBookForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
-        buttonGroup1 = new javax.swing.ButtonGroup();
         background = new javax.swing.JPanel();
         book_id = new javax.swing.JTextField();
         book_title = new javax.swing.JTextField();
@@ -85,12 +82,6 @@ public class AddBookForm extends javax.swing.JFrame {
         book_year.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 book_yearKeyTyped(evt);
-            }
-        });
-
-        book_author.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                book_authorActionPerformed(evt);
             }
         });
 
@@ -211,10 +202,6 @@ public class AddBookForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void book_authorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_book_authorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_book_authorActionPerformed
-
     private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
 
         Object[] FIELDS = {
@@ -266,12 +253,13 @@ public class AddBookForm extends javax.swing.JFrame {
                 destination_path = "";
                 btn_pdf_selector.setText("Agregar PDF");
             } catch (Exception e) {
-                System.out.println("No se pudo copiar el archivo");
+                JOptionPane.showMessageDialog(this, "No se pudo agregar el archivo");
                 System.out.println(e.getMessage());
+                return;
             }
         }
 
-        JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctament´e");
+        JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctamente");
 
     }//GEN-LAST:event_btn_submitActionPerformed
 
@@ -304,24 +292,7 @@ public class AddBookForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btn_pdf_selectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pdf_selectorActionPerformed
-        /*if(rd_pdf.isSelected()){
-            JFileChooser filechoose = new JFileChooser();
-            int option = filechoose.showOpenDialog(this);
-            if (option == JFileChooser.APPROVE_OPTION) {
-                String origin_path = filechoose.getSelectedFile().getAbsolutePath();
-                String destination_path = BooksView.books_path + book_id.getText() + ".pdf";
-
-               try {
-                Files.copy(Paths.get(origin_path), Paths.get(destination_path), StandardCopyOption.REPLACE_EXISTING);
-                
-               } catch (Exception e) {
-                   System.out.println("No se pudo copiar el archivo");
-                   System.out.println(e.getMessage());
-               }
-
-            }
-        }
-         */
+        
         JFileChooser filechoose = new JFileChooser();
         int option = filechoose.showOpenDialog(this);
         if (option == JFileChooser.APPROVE_OPTION) {
@@ -372,7 +343,6 @@ public class AddBookForm extends javax.swing.JFrame {
     private javax.swing.JTextField book_year;
     private javax.swing.JButton btn_pdf_selector;
     private CustomComponents.Button btn_submit;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_Id;
