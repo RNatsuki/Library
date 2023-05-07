@@ -1,10 +1,19 @@
 package Model;
 
+import java.sql.Connection;
+import MysqlConn.MysqlConnection;
+import java.sql.Statement;
+import java.util.Stack;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Ibarra
  */
 public class Book {
+
+    MysqlConnection mysql = new MysqlConnection();
 
     int BOOK_ID;
     String TITLE;
@@ -15,8 +24,9 @@ public class Book {
     String LANGUAJE;
     int STOCK;
     boolean isDigital;
-    
-    public Book(int BOOK_ID, String TITLE, int PUBLISHED_YEAR, String AUTHOR, String CATEGORY, int EDITION, String LANGUAJE) {
+
+    public Book(int BOOK_ID, String TITLE, int PUBLISHED_YEAR, String AUTHOR, String CATEGORY, int EDITION,
+            String LANGUAJE, int stock) {
         this.BOOK_ID = BOOK_ID;
         this.TITLE = TITLE;
         this.PUBLISHED_YEAR = PUBLISHED_YEAR;
@@ -24,20 +34,47 @@ public class Book {
         this.CATEGORY = CATEGORY;
         this.EDITION = EDITION;
         this.LANGUAJE = LANGUAJE;
-        
+        this.STOCK = stock;
+
     }
-    
-    public Book(int BOOK_ID, String TITLE, int PUBLISHED_YEAR, String AUTHOR, String CATEGORY, int EDITION, String LANGUAJE, int STOCK) {
-        this.BOOK_ID = BOOK_ID;
-        this.TITLE = TITLE;
-        this.PUBLISHED_YEAR = PUBLISHED_YEAR;
-        this.AUTHOR = AUTHOR;
-        this.CATEGORY = CATEGORY;
-        this.EDITION = EDITION;
-        this.LANGUAJE = LANGUAJE;
-        this.STOCK = STOCK;
-        
+
+    public Book() {
+
     }
+
+    public ResultSet getBooks() throws SQLException {
+        String sql = "SELECT * FROM Books";
+        Statement st = mysql.conn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+
+        return rs;
+    }
+
+    public void save() throws SQLException {
+        String query = "INSERT INTO books(id,title,year,author,category,edition,language,stock)"
+                + " VALUES('" + this.getBOOK_ID() + "','" + this.getTITLE() + "','" + this.getPUBLISHED_YEAR() + "','"
+                + this.getAUTHOR() + "','" + this.getCATEGORY() + "','" + this.getEDITION() + "','" + this.getLANGUAJE()
+                + "','" + this.getSTOCK() + "')";
+        Statement st = mysql.conn.createStatement();
+        int rs = st.executeUpdate(query);
+
+    }
+
+    public void update() throws SQLException {
+        //update set stock = stock
+        String query = "UPDATE books set title = '" + this.getTITLE() + "', year = '" + this.getPUBLISHED_YEAR() + "', author = '" + this.getAUTHOR() + "', category = '" + this.getCATEGORY() + "', edition = '" + this.getEDITION() + "', language = '" + this.getLANGUAJE() + "', stock = stock WHERE id = '" + this.getBOOK_ID() + "' ";
+        Statement st = mysql.conn.createStatement();
+        int rs = st.executeUpdate(query);
+    }
+
+    public int deleteById(int id) throws SQLException {
+        String query = "DELETE FROM books WHERE id = '" + id + "' ";
+        Statement st = mysql.conn.createStatement();
+        int rows = st.executeUpdate(query);
+        return rows;
+
+    }
+
     public int getBOOK_ID() {
         return BOOK_ID;
     }
@@ -102,5 +139,4 @@ public class Book {
         this.STOCK = STOCK;
     }
 
-   
 }

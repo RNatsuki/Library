@@ -133,7 +133,12 @@ public class MainView extends javax.swing.JFrame {
                 btn_prestamosMouseClicked(evt);
             }
         });
-        menu.add(btn_prestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 220, -1));
+        btn_prestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_prestamosActionPerformed(evt);
+            }
+        });
+        menu.add(btn_prestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 220, 50));
 
         btn_devoluciones.setForeground(new java.awt.Color(0, 0, 0));
         btn_devoluciones.setText("DEVOLUCIONES");
@@ -148,6 +153,11 @@ public class MainView extends javax.swing.JFrame {
         btn_devoluciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_devolucionesMouseClicked(evt);
+            }
+        });
+        btn_devoluciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_devolucionesActionPerformed(evt);
             }
         });
         menu.add(btn_devoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 220, -1));
@@ -165,6 +175,11 @@ public class MainView extends javax.swing.JFrame {
         btn_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_usuariosMouseClicked(evt);
+            }
+        });
+        btn_usuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_usuariosActionPerformed(evt);
             }
         });
         menu.add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 220, -1));
@@ -226,7 +241,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void btn_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuariosMouseClicked
         if (!isAdmin){JOptionPane.showMessageDialog(this, "No tienes Permiso Para Ver Ésto");return;}
-        showJpanel(new UsersView());
+        showJpanel(new UsersView(isAdmin));
         
     }//GEN-LAST:event_btn_usuariosMouseClicked
 
@@ -235,6 +250,18 @@ public class MainView extends javax.swing.JFrame {
         lv.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menu_logOutActionPerformed
+
+    private void btn_prestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_prestamosActionPerformed
+        showJpanel(new PrestamosView());
+    }//GEN-LAST:event_btn_prestamosActionPerformed
+
+    private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
+        showJpanel(new UsersView(isAdmin));
+    }//GEN-LAST:event_btn_usuariosActionPerformed
+
+    private void btn_devolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_devolucionesActionPerformed
+        showJpanel(new DevolucionesView());
+    }//GEN-LAST:event_btn_devolucionesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

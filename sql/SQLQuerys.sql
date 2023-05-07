@@ -1,0 +1,20 @@
+CREATE DATABASE library;
+
+CREATE TABLE Users(
+	username VARCHAR(25) NOT NULL PRIMARY KEY,
+	password VARCHAR(25) NOT NULL,
+	full_name VARCHAR(32) NOT NULL,
+	age int NOT NULL,
+	role VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE Books(
+	id INT PRIMARY key,
+	title VARCHAR(45) NOT NULL,
+	year INT NOT NULL,
+	author VARCHAR(45) NOT NULL,
+	category VARCHAR(45) NOT NULL,
+	edition VARCHAR(10) NOT NULL,
+	language VARCHAR(25) NOT NULL,
+	stock INT NOT NULL
+);

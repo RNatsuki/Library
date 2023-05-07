@@ -5,6 +5,9 @@
 package Views;
 
 import Middlewares.FieldsValidator;
+import Model.User;
+import java.awt.HeadlessException;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,9 +47,8 @@ public class AddUsersForm extends javax.swing.JFrame {
         txt_password = new javax.swing.JPasswordField();
         txt_confirm = new javax.swing.JPasswordField();
         btn_add_user = new CustomComponents.KButton();
-        jToolBar1 = new javax.swing.JToolBar();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -81,8 +83,6 @@ public class AddUsersForm extends javax.swing.JFrame {
             }
         });
 
-        jToolBar1.setRollover(true);
-
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
@@ -107,10 +107,6 @@ public class AddUsersForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_add_user, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69))
-            .addGroup(backgroundLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,9 +133,7 @@ public class AddUsersForm extends javax.swing.JFrame {
                     .addComponent(txt_age, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btn_add_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 300));
@@ -158,6 +152,28 @@ public class AddUsersForm extends javax.swing.JFrame {
        
         if (!validate.validateBlank(array)) {
             JOptionPane.showMessageDialog(this, "Rellena todos los campos");
+        }
+        
+        if (!(txt_password.getText().equals(this.txt_confirm.getText()))) {
+            JOptionPane.showMessageDialog(this, "las contraseñas no coinciden");
+            return;
+        }
+        
+        
+        User user = new User(
+                this.txt_num_control.getText(),
+                this.txt_password.getText(),
+                this.txt_full_name.getText(),
+                Integer.parseInt(this.txt_age.getText())
+        );
+        
+        try {
+            user.save();
+            JOptionPane.showMessageDialog(this, "El usuario se creo correctamente");
+            MainView.showJpanel(new UsersView(true));
+            
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(this, "El numero de control "+ "'"+this.txt_num_control.getText()+"' ya existe");
         }
        
        
@@ -184,7 +200,6 @@ public class AddUsersForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextField txt_age;
     private javax.swing.JPasswordField txt_confirm;
     private javax.swing.JTextField txt_full_name;

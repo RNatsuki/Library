@@ -9,7 +9,9 @@ import Model.Book;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -57,6 +59,8 @@ public class AddBookForm extends javax.swing.JFrame {
         btn_submit = new CustomComponents.Button();
         jLabel1 = new javax.swing.JLabel();
         btn_pdf_selector = new javax.swing.JButton();
+        lbl_language1 = new javax.swing.JLabel();
+        book_stock = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("AGREGA TU LIBRO");
@@ -122,6 +126,14 @@ public class AddBookForm extends javax.swing.JFrame {
             }
         });
 
+        lbl_language1.setText("Stock");
+
+        book_stock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                book_stockKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,16 +143,29 @@ public class AddBookForm extends javax.swing.JFrame {
                     .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
+                        .addComponent(btn_pdf_selector)
+                        .addGap(36, 36, 36)
+                        .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(book_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_title, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_year)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lbl_category, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbl_author, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                                .addComponent(lbl_edition, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbl_language, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btn_pdf_selector))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lbl_language1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lbl_category, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lbl_author, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lbl_edition, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lbl_language, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(book_id, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,22 +174,16 @@ public class AddBookForm extends javax.swing.JFrame {
                             .addComponent(book_author, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(book_category, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(book_edition, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(book_language, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(7, Short.MAX_VALUE))
+                            .addComponent(book_language, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(16, 16, 16))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(book_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_Id))
@@ -194,6 +213,10 @@ public class AddBookForm extends javax.swing.JFrame {
                     .addComponent(lbl_language))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(book_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_language1))
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_pdf_selector))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -204,62 +227,51 @@ public class AddBookForm extends javax.swing.JFrame {
 
     private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
 
-        Object[] FIELDS = {
-            this.book_id,
-            this.book_author,
-            this.book_category,
-            this.book_edition,
-            this.book_language,
-            this.book_title,
-            this.book_year
-        };
+        try {
+            Object[] FIELDS = {
+                this.book_id,
+                this.book_author,
+                this.book_category,
+                this.book_edition,
+                this.book_language,
+                this.book_title,
+                this.book_year,
+                this.book_stock
+            };
 
-        if (!validator.validateBlank(FIELDS)) {
-            JOptionPane.showMessageDialog(this, "Rellene todos los campos");
-            return;
-        }
-
-        Book book;
-        book = new Book(
-                Integer.parseInt(book_id.getText()),
-                book_title.getText(),
-                Integer.parseInt(book_year.getText()),
-                book_author.getText(),
-                book_category.getText(),
-                Integer.parseInt(book_edition.getText()),
-                book_language.getText()
-        );
-
-        if ((this.getStockById(Integer.parseInt(this.book_id.getText())) != 0)) {
-            JOptionPane.showMessageDialog(this, "El Id del libro ya existe");
-            return;
-        }
-
-        BooksView.model_table_books.addRow(new Object[]
-        {book_id.getText(),
-            book_title.getText(),
-            book_year.getText(),
-            book_author.getText(),
-            book_category.getText(),
-            book_edition.getText(),
-            book_language.getText(),
-            1
-        });
-
-        if (!origin_path.equals("") && !destination_path.equals("")) {
-            try {
-                Files.copy(Paths.get(origin_path), Paths.get(destination_path), StandardCopyOption.REPLACE_EXISTING);
-                origin_path = "";
-                destination_path = "";
-                btn_pdf_selector.setText("Agregar PDF");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "No se pudo agregar el archivo");
-                System.out.println(e.getMessage());
+            if (!validator.validateBlank(FIELDS)) {
+                JOptionPane.showMessageDialog(this, "Rellene todos los campos");
                 return;
             }
-        }
 
-        JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctamente");
+            Book book;
+            book = new Book(
+                    Integer.parseInt(book_id.getText()),
+                    book_title.getText(),
+                    Integer.parseInt(book_year.getText()),
+                    book_author.getText(),
+                    book_category.getText(),
+                    Integer.parseInt(book_edition.getText()),
+                    book_language.getText(),
+                    Integer.parseInt(this.book_stock.getText())
+            );
+
+            try {
+                book.save();
+                MainView.showJpanel(new BooksView(true));
+
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "ID de libro Existente");
+                return;
+            }
+
+            System.out.println("Book saved");
+            BooksView.updateTable();
+
+            JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctamente");
+        } catch (SQLException ex) {
+            Logger.getLogger(AddBookForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btn_submitActionPerformed
 
@@ -292,7 +304,7 @@ public class AddBookForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btn_pdf_selectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pdf_selectorActionPerformed
-        
+
         JFileChooser filechoose = new JFileChooser();
         int option = filechoose.showOpenDialog(this);
         if (option == JFileChooser.APPROVE_OPTION) {
@@ -303,7 +315,9 @@ public class AddBookForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_pdf_selectorActionPerformed
 
-    
+    private void book_stockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_stockKeyTyped
+        validator.onlyNumbers(evt);
+    }//GEN-LAST:event_book_stockKeyTyped
 
     int getStockById(int id) {
         int stock = 0;
@@ -339,6 +353,7 @@ public class AddBookForm extends javax.swing.JFrame {
     private javax.swing.JTextField book_edition;
     private javax.swing.JTextField book_id;
     private javax.swing.JTextField book_language;
+    private javax.swing.JTextField book_stock;
     private javax.swing.JTextField book_title;
     private javax.swing.JTextField book_year;
     private javax.swing.JButton btn_pdf_selector;
@@ -350,6 +365,7 @@ public class AddBookForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_category;
     private javax.swing.JLabel lbl_edition;
     private javax.swing.JLabel lbl_language;
+    private javax.swing.JLabel lbl_language1;
     private javax.swing.JLabel lbl_title;
     private javax.swing.JLabel lbl_year;
     // End of variables declaration//GEN-END:variables

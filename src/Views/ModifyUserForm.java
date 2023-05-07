@@ -1,0 +1,256 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package Views;
+
+import Middlewares.FieldsValidator;
+import Model.Book;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Ibarra
+ */
+public class ModifyUserForm extends javax.swing.JFrame {
+
+    FieldsValidator validator = new FieldsValidator();
+
+    public ModifyUserForm(int id, String title, int year, String author, String category, int edition, String language) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jFileChooser1 = new javax.swing.JFileChooser();
+        background = new javax.swing.JPanel();
+        book_id = new javax.swing.JTextField();
+        book_title = new javax.swing.JTextField();
+        book_year = new javax.swing.JTextField();
+        book_author = new javax.swing.JTextField();
+        book_category = new javax.swing.JTextField();
+        lbl_Id = new javax.swing.JLabel();
+        lbl_title = new javax.swing.JLabel();
+        lbl_year = new javax.swing.JLabel();
+        lbl_author = new javax.swing.JLabel();
+        lbl_category = new javax.swing.JLabel();
+        btn_submit = new CustomComponents.Button();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("AGREGA TU LIBRO");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
+
+        background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        book_id.setEditable(false);
+        book_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                book_idKeyTyped(evt);
+            }
+        });
+
+        book_year.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                book_yearActionPerformed(evt);
+            }
+        });
+        book_year.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                book_yearKeyTyped(evt);
+            }
+        });
+
+        lbl_Id.setText("NUMERO CONTROL");
+
+        lbl_title.setText("CONTRASEÑA");
+
+        lbl_year.setText("CONFIRMAR CONTRASEÑA");
+
+        lbl_author.setText("NOMBRE");
+
+        lbl_category.setText("EDAD");
+
+        btn_submit.setBackground(new java.awt.Color(153, 255, 255));
+        btn_submit.setText("Editar");
+        btn_submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_submitActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Editar");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_year)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lbl_category, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_author, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbl_Id)
+                    .addComponent(lbl_title))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(book_id, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(book_title, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(book_year, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(book_author, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(book_category, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(book_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_Id))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(book_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_title))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(book_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_year))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(book_author, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_author))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(book_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_category))
+                .addGap(78, 78, 78)
+                .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
+
+        try {
+            Object[] FIELDS = {
+                this.book_id,
+                this.book_author,
+                this.book_category,
+                this.book_title,
+                this.book_year,};
+
+            if (!validator.validateBlank(FIELDS)) {
+                JOptionPane.showMessageDialog(this, "Rellene todos los campos");
+                return;
+            }
+
+            //book.update();
+            MainView.showJpanel(new BooksView(true));
+
+            System.out.println("Book saved");
+            BooksView.updateTable();
+
+            JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctamente");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModifyUserForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btn_submitActionPerformed
+
+    private void book_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_idKeyTyped
+        validator.onlyNumbers(evt);
+    }//GEN-LAST:event_book_idKeyTyped
+
+    private void book_yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_book_yearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_book_yearActionPerformed
+
+    private void book_yearKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_yearKeyTyped
+        validator.onlyNumbers(evt);
+        int year = this.book_year.getText().length();
+
+        if (year > 3) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "El año solo puede tener 4 caracteres");
+            return;
+        }
+
+    }//GEN-LAST:event_book_yearKeyTyped
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        BooksView.btn_menu_add.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
+
+    int getStockById(int id) {
+        int stock = 0;
+        for (int i = 0; i < BooksView.model_table_books.getRowCount(); i++) {
+
+            try {
+
+                int id_table = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 0).toString());
+
+                if (id == id_table) {
+                    stock = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 7).toString());
+                }
+
+                System.out.println(stock);
+            } catch (NullPointerException e) {
+                return 0;
+            }
+
+        }
+
+        return stock;
+
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel background;
+    private javax.swing.JTextField book_author;
+    private javax.swing.JTextField book_category;
+    private javax.swing.JTextField book_id;
+    private javax.swing.JTextField book_title;
+    private javax.swing.JTextField book_year;
+    private CustomComponents.Button btn_submit;
+    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbl_Id;
+    private javax.swing.JLabel lbl_author;
+    private javax.swing.JLabel lbl_category;
+    private javax.swing.JLabel lbl_title;
+    private javax.swing.JLabel lbl_year;
+    // End of variables declaration//GEN-END:variables
+}

@@ -4,13 +4,20 @@
  */
 package Views;
 
+import Model.Book;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Statement;
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import MysqlConn.MysqlConnection;
 
 /**
  *
@@ -18,18 +25,28 @@ import javax.swing.table.DefaultTableModel;
  */
 public class BooksView extends javax.swing.JPanel {
     
-
     public static DefaultTableModel model_table_books;
     boolean isAdmin;
     public static String user_name = System.getProperty("user.name");
     public static String books_path = "C:\\Users\\" + user_name + "\\Documents\\BookLIB\\";
+    
     public BooksView(boolean isAdmin) {
-        initComponents();
-        this.setLocation(WIDTH, WIDTH);
-        model_table_books = (DefaultTableModel) this.tbl_books.getModel();
-        initializePopUpMenu();
-        this.isAdmin = isAdmin;
+        try {
+            initComponents();
+            this.setLocation(WIDTH, WIDTH);
+            model_table_books = (DefaultTableModel) this.tbl_books.getModel();
+            this.isAdmin = isAdmin;
+            initializePopUpMenu();
+            
+            updateTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(BooksView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        if (!isAdmin) {
+            btn_edit.setEnabled(false);
+            btn_menu_add.setEnabled(false);
+        }
         
     }
 
@@ -40,6 +57,7 @@ public class BooksView extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -48,6 +66,9 @@ public class BooksView extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_books = new javax.swing.JTable();
         btn_menu_add = new CustomComponents.KButton();
+        book_search = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        btn_edit = new CustomComponents.KButton();
 
         tbl_books.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -67,6 +88,21 @@ public class BooksView extends javax.swing.JPanel {
             }
         });
 
+        book_search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                book_searchKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("Buscar:");
+
+        btn_edit.setText("Editar");
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
@@ -74,17 +110,26 @@ public class BooksView extends javax.swing.JPanel {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addComponent(btn_menu_add, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 456, Short.MAX_VALUE)))
+                        .addGap(50, 50, 50)
+                        .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(book_search, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(btn_menu_add, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_menu_add, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(book_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
@@ -102,8 +147,40 @@ public class BooksView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void book_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_searchKeyReleased
+        model_table_books.setRowCount(0);
+        try {
+            MysqlConnection mysql = new MysqlConnection();
+            
+            String search = book_search.getText();
+            String query = "SELECT * FROM books WHERE title LIKE '%" + search + "%' OR author LIKE '%" + search
+                    + "%' OR category LIKE '%" + search + "%' OR language LIKE '%" + search + "%' OR year LIKE '%" + search + "%'";
+            
+            Statement st = mysql.conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            while (rs.next()) {
+                model_table_books.addRow(new Object[]{rs.getInt("id"), rs.getString("title"),
+                    rs.getInt("year"), rs.getString("author"), rs.getString("category"),
+                    rs.getInt("edition"), rs.getString("language"), rs.getString("stock")});
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BooksView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }//GEN-LAST:event_book_searchKeyReleased
+
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+        edit();
+    }//GEN-LAST:event_btn_editActionPerformed
+    
     private void btn_menu_addActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_menu_addActionPerformed
-        if (!isAdmin){JOptionPane.showMessageDialog(this, "No tienes Permiso Para Ver Ésto");return;}
+        if (!isAdmin) {
+            JOptionPane.showMessageDialog(this, "No tienes Permiso Para Ver Ésto");
+            return;
+        }
         
         btn_menu_add.setEnabled(false);
         AddBookForm addForm = new AddBookForm();
@@ -112,38 +189,93 @@ public class BooksView extends javax.swing.JPanel {
 
     public void initializePopUpMenu() {
         JMenuItem viewPDF = new JMenuItem("Ver PDF");
+        
+        if (isAdmin) {
+            JMenuItem deleteBook = new JMenuItem("Eliminar");
+            pp_menu_table.add(deleteBook);
+            deleteBook.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    
+                    try {
+                        int book_id_selected = Integer
+                                .parseInt(tbl_books.getValueAt(tbl_books.getSelectedRow(), 0).toString());
+                        Book book = new Book();
+                        book.deleteById(book_id_selected);
+                        MainView.showJpanel(new BooksView(true));
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Selecciona el libro primero");
+                    }
+                    
+                }
+            });
+        }
+        
         pp_menu_table.add(viewPDF);
-
         tbl_books.setComponentPopupMenu(pp_menu_table);
-
+        
         viewPDF.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                
                 try {
                     int book_id_selected = Integer
                             .parseInt(tbl_books.getValueAt(tbl_books.getSelectedRow(), 0).toString());
-
-                    File path = new File("C:\\Users\\"+user_name+"\\Documents\\BookLib\\"
+                    
+                    File path = new File("C:\\Users\\" + user_name + "\\Documents\\BookLib\\"
                             + book_id_selected + ".pdf");
                     if (!path.exists()) {
                         JOptionPane.showMessageDialog(null, "No se encontro el archivo");
                         return;
                     }
                     Desktop.getDesktop().open(path);
-
+                    
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Selecciona el libro con click derecho");
                 }
-
+                
             }
         });
-
+        
+    }
+    
+    public static void updateTable() throws SQLException {
+        model_table_books.setRowCount(0);
+        Book book = new Book();
+        ResultSet rs = book.getBooks();
+        while (rs.next()) {
+            model_table_books.addRow(new Object[]{rs.getInt("id"), rs.getString("title"),
+                rs.getInt("year"), rs.getString("author"), rs.getString("category"),
+                rs.getInt("edition"), rs.getString("language"), rs.getString("stock")});
+        }
+        
+    }
+    
+    public void edit() {
+        int selected = tbl_books.getSelectedRow();
+        if (selected == -1) {
+            System.out.println("Selecciona un registro");
+            return;
+        }
+        
+        int id = (int) tbl_books.getValueAt(selected, 0);
+        String title = (String) tbl_books.getValueAt(selected, 1);
+        int year = (int) tbl_books.getValueAt(selected, 2);
+        String author = (String) tbl_books.getValueAt(selected, 3);
+        String category = (String) tbl_books.getValueAt(selected, 4);
+        int edition = (int) tbl_books.getValueAt(selected, 5);
+        String language = (String) tbl_books.getValueAt(selected, 6);
+        
+        ModifyBookForm modifyBook = new ModifyBookForm(id, title, year, author, category, edition, language);
+        modifyBook.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
+    private javax.swing.JTextField book_search;
+    private CustomComponents.KButton btn_edit;
     public static CustomComponents.KButton btn_menu_add;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu pp_menu_table;
     public javax.swing.JTable tbl_books;

@@ -362,13 +362,14 @@ public class LoginView extends javax.swing.JFrame {
         Object[] fields = {txt_password, txt_username};
 
         User trying = login_validator.getUser(txt_username.getText(), txt_password.getText());
-
+        
         if (trying.getRole() == null) {
             JOptionPane.showMessageDialog(this, "Credenciales Incorrectas");
             return;
         }
 
         if (!trying.isAdmin()) {
+            System.out.println("Iniciando como usuario");
             MainView mv = new MainView(txt_username.getText(),false);
             mv.setVisible(true);
             this.dispose();
@@ -376,6 +377,7 @@ public class LoginView extends javax.swing.JFrame {
         }
         
         if (trying.isAdmin()) {
+            System.out.println("Iniciando como administrador");
             MainView mv = new MainView(txt_username.getText(),true);
             mv.setVisible(true);
             this.dispose();
