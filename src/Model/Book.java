@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.Stack;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,6 +41,57 @@ public class Book {
 
     public Book() {
 
+    }
+
+    public void loan(String userId) {
+        try {
+            if (!this.exists()) {
+                JOptionPane.showMessageDialog(null, "Id de libro no existente");
+                return;
+            }
+            User user = new User();
+
+            if (!user.exists(userId)) {
+                JOptionPane.showMessageDialog(null, "Id de usuario no existente");
+            }
+
+            if(!this.existsStock()){
+                JOptionPane.showMessageDialog(null, "El libro no está en existencia");
+                return;
+            }
+            String query = "INSERT INTO loans(UserId,bookId) VALUES('" + userId + "','" + this.BOOK_ID + "')";
+            Statement st = mysql.conn.createStatement();
+            st.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public boolean existsStock() throws SQLException {
+        String query = "SELECT stock FROM books WHERE id = '" + this.getBOOK_ID() + "'";
+        Statement st = mysql.conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+
+        int stock = 0;
+
+        while (rs.next()) {
+            stock = rs.getInt("stock");
+        }
+
+        return stock > 0;
+
+    }
+
+    public boolean exists() throws SQLException {
+        String query = "SELECT id FROM books WHERE id = " + this.getBOOK_ID();
+        Statement st = mysql.conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+
+        while (rs.next()) {
+            return true;
+        }
+        return false;
     }
 
     public ResultSet getBooks() throws SQLException {

@@ -145,12 +145,11 @@ public final class UsersView extends javax.swing.JPanel {
             MysqlConnection mysql = new MysqlConnection();
 
             String search = book_search.getText();
-            String query = "SELECT * FROM users WHERE username LIKE '%" + search + "%' OR password LIKE '%" + search
-                    + "%' OR full_name LIKE '%" + search + "%' OR age LIKE '%" + search + "%'";
+            String query = "SELECT * FROM users WHERE (username LIKE '%" + search + "%' OR password LIKE '%" + search
+                    + "%' OR full_name LIKE '%" + search + "%' OR age LIKE '%" + search + "%') AND role != 'admin' ";
 
             Statement st = mysql.conn.createStatement();
             ResultSet rs = st.executeQuery(query);
-
             while (rs.next()) {
                 model_table_users.addRow(new Object[]{rs.getString("username"),
                 rs.getString("full_name"),rs.getString("password") ,rs.getString("age")});
@@ -184,7 +183,7 @@ public final class UsersView extends javax.swing.JPanel {
                     user.delete();
                     MainView.showJpanel(new UsersView(true));
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Selecciona el libro primero");
+                    JOptionPane.showMessageDialog(null, "Selecciona el usuario primero");
                 }
             });
         }
@@ -207,20 +206,17 @@ public final class UsersView extends javax.swing.JPanel {
     public void edit() {
         int selected = tbl_users.getSelectedRow();
         if (selected == -1) {
-            System.out.println("Selecciona un registro");
+            JOptionPane.showMessageDialog(this, "Selecciona un registro de la tabla");
             return;
         }
 
-        int id = (int) tbl_users.getValueAt(selected, 0);
-        String title = (String) tbl_users.getValueAt(selected, 1);
-        int year = (int) tbl_users.getValueAt(selected, 2);
-        String author = (String) tbl_users.getValueAt(selected, 3);
-        String category = (String) tbl_users.getValueAt(selected, 4);
-        int edition = (int) tbl_users.getValueAt(selected, 5);
-        String language = (String) tbl_users.getValueAt(selected, 6);
-
-        ModifyBookForm modifyBook = new ModifyBookForm(id, title, year, author, category, edition, language);
-        modifyBook.setVisible(true);
+        String num_control = (String) tbl_users.getValueAt(selected, 0);
+        String full_name = (String) tbl_users.getValueAt(selected,1);
+        String password = (String) tbl_users.getValueAt(selected,2);
+        String age = (String) tbl_users.getValueAt(selected,3);
+       
+        ModifyUserForm muf = new ModifyUserForm(num_control, full_name, password, age);
+        muf.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

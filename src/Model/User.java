@@ -27,7 +27,6 @@ public class User {
     String fullName;
     int age;
     String defaultRole = "user";
-    
 
     MysqlConnection mysql = new MysqlConnection();
 
@@ -47,47 +46,63 @@ public class User {
         return false;
     }
 
+    public boolean exists(String id) throws SQLException {
+        String query = "SELECT username FROM users WHERE username = '" + this.getUsername()+"'";
+        Statement st = mysql.conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+
+        while (rs.next()) {
+            return true;
+        }
+        return false;
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
-    
+
     public User() {
     }
-    
-    public  User(String username, String password, String name, int age){
+
+    public User(String username, String password, String name, int age) {
         this.username = username;
         this.password = password;
         this.fullName = name;
         this.age = age;
     }
-    
-    public ResultSet getUsers() throws SQLException{
+
+    public ResultSet getUsers() throws SQLException {
         String query = "SELECT username,full_name,age,password FROM Users WHERE role != 'admin'";
         Statement st = mysql.conn.createStatement();
         ResultSet rs = st.executeQuery(query);
-        return  rs;
+        return rs;
     }
-    
-    public void save() throws SQLException{
+
+    public void save() throws SQLException {
         String query = "INSERT INTO users(username,password,full_name,age,role)"
-                + "VALUES('"+this.getUsername()+"','"+this.getPassword()+"','"+this.getFullName()+"','"+this.getAge()+"','"+this.getDefaultRole()+"')";
+                + "VALUES('" + this.getUsername() + "','" + this.getPassword() + "','" + this.getFullName() + "','" + this.getAge() + "','" + this.getDefaultRole() + "')";
         Statement st = mysql.conn.createStatement();
         int rs = st.executeUpdate(query);
     }
-    
-    public void delete(){
+
+    public void delete() {
         try {
-            String query = "DELETE FROM users WHERE username = '"+this.getUsername()+"'";
+            String query = "DELETE FROM users WHERE username = '" + this.getUsername() + "'";
             Statement st = mysql.conn.createStatement();
             st.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    
+
+    public void update() throws SQLException {
+        String query = "UPDATE users SET password = '" + this.getPassword() + "', full_name = '" + this.getFullName() + "', age = '" + this.getAge() + "' WHERE username = '" + this.getUsername() + "'";
+        Statement st = mysql.conn.createStatement();
+        st.executeUpdate(query);
+    }
+
     public String getUsername() {
         return username;
     }
@@ -128,6 +143,5 @@ public class User {
     public String getDefaultRole() {
         return defaultRole;
     }
-    
 
 }

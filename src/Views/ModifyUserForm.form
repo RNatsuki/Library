@@ -7,7 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="AGREGA TU LIBRO"/>
+    <Property name="title" type="java.lang.String" value="EDITAR USUARIO"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -44,11 +44,11 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="book_id" min="-2" pref="170" max="-2" attributes="0"/>
-                  <Component id="book_title" min="-2" pref="170" max="-2" attributes="0"/>
-                  <Component id="book_year" min="-2" pref="170" max="-2" attributes="0"/>
-                  <Component id="book_author" min="-2" pref="170" max="-2" attributes="0"/>
-                  <Component id="book_category" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="user_id" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="user_password" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="user_confirm_password" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="user_full_name" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Component id="user_age" min="-2" pref="170" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
           </Group>
@@ -76,27 +76,27 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="book_id" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="user_id" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_Id" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="book_title" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="user_password" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_title" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="book_year" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="user_confirm_password" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_year" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="book_author" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="user_full_name" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_author" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="book_category" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="user_age" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_category" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
@@ -113,25 +113,24 @@
         <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
     </Container>
-    <Component class="javax.swing.JTextField" name="book_id">
+    <Component class="javax.swing.JTextField" name="user_id">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_idKeyTyped"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="user_idKeyTyped"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="book_title">
+    <Component class="javax.swing.JTextField" name="user_password">
     </Component>
-    <Component class="javax.swing.JTextField" name="book_year">
+    <Component class="javax.swing.JTextField" name="user_confirm_password">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="book_yearActionPerformed"/>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_yearKeyTyped"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user_confirm_passwordActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="book_author">
+    <Component class="javax.swing.JTextField" name="user_full_name">
     </Component>
-    <Component class="javax.swing.JTextField" name="book_category">
+    <Component class="javax.swing.JTextField" name="user_age">
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_Id">
       <Properties>

@@ -252,7 +252,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_menu_logOutActionPerformed
 
     private void btn_prestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_prestamosActionPerformed
-        showJpanel(new PrestamosView());
+        showJpanel(new PrestamosView(isAdmin));
     }//GEN-LAST:event_btn_prestamosActionPerformed
 
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed

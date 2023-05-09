@@ -24,12 +24,12 @@ import MysqlConn.MysqlConnection;
  * @author Ibarra
  */
 public class BooksView extends javax.swing.JPanel {
-    
+
     public static DefaultTableModel model_table_books;
     boolean isAdmin;
     public static String user_name = System.getProperty("user.name");
     public static String books_path = "C:\\Users\\" + user_name + "\\Documents\\BookLIB\\";
-    
+
     public BooksView(boolean isAdmin) {
         try {
             initComponents();
@@ -37,17 +37,17 @@ public class BooksView extends javax.swing.JPanel {
             model_table_books = (DefaultTableModel) this.tbl_books.getModel();
             this.isAdmin = isAdmin;
             initializePopUpMenu();
-            
+
             updateTable();
         } catch (SQLException ex) {
             Logger.getLogger(BooksView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         if (!isAdmin) {
             btn_edit.setEnabled(false);
             btn_menu_add.setEnabled(false);
         }
-        
+
     }
 
     /**
@@ -151,37 +151,37 @@ public class BooksView extends javax.swing.JPanel {
         model_table_books.setRowCount(0);
         try {
             MysqlConnection mysql = new MysqlConnection();
-            
+
             String search = book_search.getText();
             String query = "SELECT * FROM books WHERE title LIKE '%" + search + "%' OR author LIKE '%" + search
                     + "%' OR category LIKE '%" + search + "%' OR language LIKE '%" + search + "%' OR year LIKE '%" + search + "%'";
-            
+
             Statement st = mysql.conn.createStatement();
             ResultSet rs = st.executeQuery(query);
-            
+
             while (rs.next()) {
                 model_table_books.addRow(new Object[]{rs.getInt("id"), rs.getString("title"),
                     rs.getInt("year"), rs.getString("author"), rs.getString("category"),
                     rs.getInt("edition"), rs.getString("language"), rs.getString("stock")});
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(BooksView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
 
     }//GEN-LAST:event_book_searchKeyReleased
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         edit();
     }//GEN-LAST:event_btn_editActionPerformed
-    
+
     private void btn_menu_addActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_menu_addActionPerformed
         if (!isAdmin) {
             JOptionPane.showMessageDialog(this, "No tienes Permiso Para Ver Ésto");
             return;
         }
-        
+
         btn_menu_add.setEnabled(false);
         AddBookForm addForm = new AddBookForm();
         addForm.setVisible(true);
@@ -189,14 +189,14 @@ public class BooksView extends javax.swing.JPanel {
 
     public void initializePopUpMenu() {
         JMenuItem viewPDF = new JMenuItem("Ver PDF");
-        
+
         if (isAdmin) {
             JMenuItem deleteBook = new JMenuItem("Eliminar");
             pp_menu_table.add(deleteBook);
             deleteBook.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+
                     try {
                         int book_id_selected = Integer
                                 .parseInt(tbl_books.getValueAt(tbl_books.getSelectedRow(), 0).toString());
@@ -206,22 +206,22 @@ public class BooksView extends javax.swing.JPanel {
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Selecciona el libro primero");
                     }
-                    
+
                 }
             });
         }
-        
+
         pp_menu_table.add(viewPDF);
         tbl_books.setComponentPopupMenu(pp_menu_table);
-        
+
         viewPDF.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 try {
                     int book_id_selected = Integer
                             .parseInt(tbl_books.getValueAt(tbl_books.getSelectedRow(), 0).toString());
-                    
+
                     File path = new File("C:\\Users\\" + user_name + "\\Documents\\BookLib\\"
                             + book_id_selected + ".pdf");
                     if (!path.exists()) {
@@ -229,16 +229,16 @@ public class BooksView extends javax.swing.JPanel {
                         return;
                     }
                     Desktop.getDesktop().open(path);
-                    
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Selecciona el libro con click derecho");
                 }
-                
+
             }
         });
-        
+
     }
-    
+
     public static void updateTable() throws SQLException {
         model_table_books.setRowCount(0);
         Book book = new Book();
@@ -248,16 +248,16 @@ public class BooksView extends javax.swing.JPanel {
                 rs.getInt("year"), rs.getString("author"), rs.getString("category"),
                 rs.getInt("edition"), rs.getString("language"), rs.getString("stock")});
         }
-        
+
     }
-    
+
     public void edit() {
         int selected = tbl_books.getSelectedRow();
         if (selected == -1) {
-            System.out.println("Selecciona un registro");
+            JOptionPane.showMessageDialog(this, "Selecciona un registro de la tabla");
             return;
         }
-        
+
         int id = (int) tbl_books.getValueAt(selected, 0);
         String title = (String) tbl_books.getValueAt(selected, 1);
         int year = (int) tbl_books.getValueAt(selected, 2);
@@ -265,7 +265,7 @@ public class BooksView extends javax.swing.JPanel {
         String category = (String) tbl_books.getValueAt(selected, 4);
         int edition = (int) tbl_books.getValueAt(selected, 5);
         String language = (String) tbl_books.getValueAt(selected, 6);
-        
+        System.out.println(language);
         ModifyBookForm modifyBook = new ModifyBookForm(id, title, year, author, category, edition, language);
         modifyBook.setVisible(true);
     }

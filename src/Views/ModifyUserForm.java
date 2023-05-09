@@ -5,7 +5,7 @@
 package Views;
 
 import Middlewares.FieldsValidator;
-import Model.Book;
+import Model.User;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,9 +19,14 @@ public class ModifyUserForm extends javax.swing.JFrame {
 
     FieldsValidator validator = new FieldsValidator();
 
-    public ModifyUserForm(int id, String title, int year, String author, String category, int edition, String language) {
+    public ModifyUserForm(String num_control, String full_name, String password, String age) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.user_id.setText(num_control);
+        this.user_full_name.setText(full_name);
+        this.user_password.setText(password);
+        this.user_confirm_password.setText(password);
+        this.user_age.setText(age);
 
     }
 
@@ -31,11 +36,11 @@ public class ModifyUserForm extends javax.swing.JFrame {
 
         jFileChooser1 = new javax.swing.JFileChooser();
         background = new javax.swing.JPanel();
-        book_id = new javax.swing.JTextField();
-        book_title = new javax.swing.JTextField();
-        book_year = new javax.swing.JTextField();
-        book_author = new javax.swing.JTextField();
-        book_category = new javax.swing.JTextField();
+        user_id = new javax.swing.JTextField();
+        user_password = new javax.swing.JTextField();
+        user_confirm_password = new javax.swing.JTextField();
+        user_full_name = new javax.swing.JTextField();
+        user_age = new javax.swing.JTextField();
         lbl_Id = new javax.swing.JLabel();
         lbl_title = new javax.swing.JLabel();
         lbl_year = new javax.swing.JLabel();
@@ -45,7 +50,7 @@ public class ModifyUserForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("AGREGA TU LIBRO");
+        setTitle("EDITAR USUARIO");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -54,21 +59,16 @@ public class ModifyUserForm extends javax.swing.JFrame {
 
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        book_id.setEditable(false);
-        book_id.addKeyListener(new java.awt.event.KeyAdapter() {
+        user_id.setEditable(false);
+        user_id.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                book_idKeyTyped(evt);
+                user_idKeyTyped(evt);
             }
         });
 
-        book_year.addActionListener(new java.awt.event.ActionListener() {
+        user_confirm_password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                book_yearActionPerformed(evt);
-            }
-        });
-        book_year.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                book_yearKeyTyped(evt);
+                user_confirm_passwordActionPerformed(evt);
             }
         });
 
@@ -107,11 +107,11 @@ public class ModifyUserForm extends javax.swing.JFrame {
                     .addComponent(lbl_title))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(book_id, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(book_title, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(book_year, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(book_author, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(book_category, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(user_id, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user_password, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user_confirm_password, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user_full_name, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user_age, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,23 +132,23 @@ public class ModifyUserForm extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(book_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_Id))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(book_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_title))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(book_year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user_confirm_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_year))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(book_author, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user_full_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_author))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(book_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user_age, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_category))
                 .addGap(78, 78, 78)
                 .addComponent(btn_submit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,52 +162,48 @@ public class ModifyUserForm extends javax.swing.JFrame {
 
         try {
             Object[] FIELDS = {
-                this.book_id,
-                this.book_author,
-                this.book_category,
-                this.book_title,
-                this.book_year,};
+                this.user_id,
+                this.user_full_name,
+                this.user_age,
+                this.user_password,
+                this.user_confirm_password,};
 
             if (!validator.validateBlank(FIELDS)) {
                 JOptionPane.showMessageDialog(this, "Rellene todos los campos");
                 return;
             }
 
-            //book.update();
-            MainView.showJpanel(new BooksView(true));
+            if (!(this.user_password.getText().equals(this.user_confirm_password.getText()))) {
+                JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
+                return;
+            }
 
-            System.out.println("Book saved");
-            BooksView.updateTable();
+            User user = new User(
+                    this.user_id.getText(),
+                    this.user_password.getText(),
+                    this.user_full_name.getText(),
+                    Integer.parseInt(this.user_age.getText())
+            );
 
-            JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctamente");
+            user.update();
+            MainView.showJpanel(new UsersView(true));
+
         } catch (SQLException ex) {
             Logger.getLogger(ModifyUserForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btn_submitActionPerformed
 
-    private void book_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_idKeyTyped
+    private void user_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_user_idKeyTyped
         validator.onlyNumbers(evt);
-    }//GEN-LAST:event_book_idKeyTyped
+    }//GEN-LAST:event_user_idKeyTyped
 
-    private void book_yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_book_yearActionPerformed
+    private void user_confirm_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_confirm_passwordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_book_yearActionPerformed
-
-    private void book_yearKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_yearKeyTyped
-        validator.onlyNumbers(evt);
-        int year = this.book_year.getText().length();
-
-        if (year > 3) {
-            evt.consume();
-            JOptionPane.showMessageDialog(this, "El año solo puede tener 4 caracteres");
-            return;
-        }
-
-    }//GEN-LAST:event_book_yearKeyTyped
+    }//GEN-LAST:event_user_confirm_passwordActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        BooksView.btn_menu_add.setEnabled(true);
+        
     }//GEN-LAST:event_formWindowClosed
 
     int getStockById(int id) {
@@ -239,11 +235,6 @@ public class ModifyUserForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
-    private javax.swing.JTextField book_author;
-    private javax.swing.JTextField book_category;
-    private javax.swing.JTextField book_id;
-    private javax.swing.JTextField book_title;
-    private javax.swing.JTextField book_year;
     private CustomComponents.Button btn_submit;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
@@ -252,5 +243,10 @@ public class ModifyUserForm extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_category;
     private javax.swing.JLabel lbl_title;
     private javax.swing.JLabel lbl_year;
+    private javax.swing.JTextField user_age;
+    private javax.swing.JTextField user_confirm_password;
+    private javax.swing.JTextField user_full_name;
+    private javax.swing.JTextField user_id;
+    private javax.swing.JTextField user_password;
     // End of variables declaration//GEN-END:variables
 }

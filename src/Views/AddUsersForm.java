@@ -24,6 +24,7 @@ public class AddUsersForm extends javax.swing.JFrame {
     public AddUsersForm() {
         initComponents();
         this.setLocationRelativeTo(null);
+        txt_num_control.requestFocus();
     }
 
     /**
@@ -59,19 +60,43 @@ public class AddUsersForm extends javax.swing.JFrame {
 
         jLabel3.setText("Confirmar:");
 
+        txt_num_control.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_num_controlKeyPressed(evt);
+            }
+        });
+
         jLabel4.setText("Nombre Completo:");
 
         jLabel6.setText("Edad:");
 
         txt_full_name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_full_nameKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_full_nameKeyTyped(evt);
             }
         });
 
         txt_age.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_ageKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_ageKeyTyped(evt);
+            }
+        });
+
+        txt_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_passwordKeyPressed(evt);
+            }
+        });
+
+        txt_confirm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_confirmKeyPressed(evt);
             }
         });
 
@@ -80,6 +105,11 @@ public class AddUsersForm extends javax.swing.JFrame {
         btn_add_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_add_userActionPerformed(evt);
+            }
+        });
+        btn_add_user.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_add_userKeyPressed(evt);
             }
         });
 
@@ -142,7 +172,56 @@ public class AddUsersForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_add_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_userActionPerformed
-       Object[] array = {
+       save();
+       
+    }//GEN-LAST:event_btn_add_userActionPerformed
+
+    private void txt_ageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ageKeyTyped
+        validate.onlyNumbers(evt);
+    }//GEN-LAST:event_txt_ageKeyTyped
+
+    private void txt_full_nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_full_nameKeyTyped
+        validate.onlyLetters(evt);
+    }//GEN-LAST:event_txt_full_nameKeyTyped
+
+    private void txt_num_controlKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_num_controlKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.txt_password.requestFocus();
+        }
+    }//GEN-LAST:event_txt_num_controlKeyPressed
+
+    private void txt_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passwordKeyPressed
+       if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.txt_confirm.requestFocus();
+        }
+    }//GEN-LAST:event_txt_passwordKeyPressed
+
+    private void txt_confirmKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_confirmKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.txt_full_name.requestFocus();
+        }
+    }//GEN-LAST:event_txt_confirmKeyPressed
+
+    private void txt_full_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_full_nameKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.txt_age.requestFocus();
+        }
+    }//GEN-LAST:event_txt_full_nameKeyPressed
+
+    private void txt_ageKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ageKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.btn_add_user.requestFocus();
+        }
+    }//GEN-LAST:event_txt_ageKeyPressed
+
+    private void btn_add_userKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_add_userKeyPressed
+       if (evt.getKeyChar() == evt.VK_ENTER) {
+            save();
+        }
+    }//GEN-LAST:event_btn_add_userKeyPressed
+
+    void save(){
+        Object[] array = {
            txt_num_control,
            txt_password,
            txt_confirm,
@@ -152,6 +231,7 @@ public class AddUsersForm extends javax.swing.JFrame {
        
         if (!validate.validateBlank(array)) {
             JOptionPane.showMessageDialog(this, "Rellena todos los campos");
+            return;
         }
         
         if (!(txt_password.getText().equals(this.txt_confirm.getText()))) {
@@ -173,20 +253,12 @@ public class AddUsersForm extends javax.swing.JFrame {
             MainView.showJpanel(new UsersView(true));
             
         } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(this, "El numero de control "+ "'"+this.txt_num_control.getText()+"' ya existe");
         }
        
-       
-    }//GEN-LAST:event_btn_add_userActionPerformed
-
-    private void txt_ageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ageKeyTyped
-        validate.onlyNumbers(evt);
-    }//GEN-LAST:event_txt_ageKeyTyped
-
-    private void txt_full_nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_full_nameKeyTyped
-        validate.onlyLetters(evt);
-    }//GEN-LAST:event_txt_full_nameKeyTyped
-
+    }
+    
     /**
      * @param args the command line arguments
      */

@@ -18,3 +18,12 @@ CREATE TABLE Books(
 	language VARCHAR(25) NOT NULL,
 	stock INT NOT NULL
 );
+
+CREATE TABLE Prestamos(
+	idPrestamo INT PRIMARY KEY AUTO_INCREMENT,
+	idUser INT,
+	idBook INT,
+	FOREIGN KEY(idUser) REFERENCES Users(username),
+	FOREIGN KEY(idBook) REFERENCES Books(id)
+);
+
