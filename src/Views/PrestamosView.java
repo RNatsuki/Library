@@ -4,6 +4,7 @@
  */
 package Views;
 
+import Model.Book;
 import Model.User;
 import java.awt.event.ActionEvent;
 import java.sql.Statement;
@@ -22,7 +23,7 @@ import MysqlConn.MysqlConnection;
  */
 public final class PrestamosView extends javax.swing.JPanel {
 
-    public static DefaultTableModel model_table_users;
+    public static DefaultTableModel model_table_loans;
     boolean isAdmin;
     public static String user_name = System.getProperty("user.name");
     
@@ -31,8 +32,10 @@ public final class PrestamosView extends javax.swing.JPanel {
         try {
             initComponents();
             this.setLocation(WIDTH, WIDTH);
-            model_table_users = (DefaultTableModel) this.tbl_users.getModel();
+            model_table_loans = (DefaultTableModel) this.tbl_loans.getModel();
             this.isAdmin = isAdmin;
+            initializePopUpMenu();
+
             updateTable();
         } catch (SQLException ex) {
             Logger.getLogger(PrestamosView.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,27 +51,27 @@ public final class PrestamosView extends javax.swing.JPanel {
         pp_menu_table = new javax.swing.JPopupMenu();
         background = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_users = new javax.swing.JTable();
-        btn_create_prestamo = new CustomComponents.KButton();
+        tbl_loans = new javax.swing.JTable();
+        btn_menu_add = new CustomComponents.KButton();
         book_search = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        tbl_users.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_loans.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"El Principito", "Antoine de Saint-Exupery", "2016", null}
+                {"El Principito", "Antoine de Saint-Exupery", null, null, null, null, null, null, null}
             },
             new String [] {
-                "NUMERO CONTROL", "NOMBRE", "CONTRASEÑA", "EDAD"
+                "ID", "NUM CONTROL", "NOMBRE", "LIBRO ID", "TITULO", "AÑO", "AUTOR", "CATEGORIA", "IDIOMA"
             }
         ));
-        tbl_users.setToolTipText("");
-        tbl_users.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tbl_users);
+        tbl_loans.setToolTipText("");
+        tbl_loans.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tbl_loans);
 
-        btn_create_prestamo.setText("Nuevo Usuario");
-        btn_create_prestamo.addActionListener(new java.awt.event.ActionListener() {
+        btn_menu_add.setText("Nuevo Usuario");
+        btn_menu_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_create_prestamoActionPerformed(evt);
+                btn_menu_addActionPerformed(evt);
             }
         });
 
@@ -89,7 +92,7 @@ public final class PrestamosView extends javax.swing.JPanel {
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(btn_create_prestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_menu_add, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -101,7 +104,7 @@ public final class PrestamosView extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_create_prestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_menu_add, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(book_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -122,7 +125,7 @@ public final class PrestamosView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void book_searchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_searchKeyReleased
-        model_table_users.setRowCount(0);
+        model_table_loans.setRowCount(0);
         try {
             MysqlConnection mysql = new MysqlConnection();
 
@@ -133,44 +136,75 @@ public final class PrestamosView extends javax.swing.JPanel {
             Statement st = mysql.conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                model_table_users.addRow(new Object[]{rs.getString("username"),
+                model_table_loans.addRow(new Object[]{rs.getString("username"),
                 rs.getString("full_name"),rs.getString("password") ,rs.getString("age")});
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(PrestamosView.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
     }//GEN-LAST:event_book_searchKeyReleased
 
-    private void btn_create_prestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_create_prestamoActionPerformed
-        AddUsersForm uf = new AddUsersForm();
-        uf.setVisible(true);
-    }//GEN-LAST:event_btn_create_prestamoActionPerformed
+    private void btn_menu_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menu_addActionPerformed
+        PrestamoForm pf = new PrestamoForm();
+        pf.setVisible(true);
+    }//GEN-LAST:event_btn_menu_addActionPerformed
 
+    public void initializePopUpMenu() {
+
+        if (isAdmin) {
+            JMenuItem deleteBook = new JMenuItem("Eliminar");
+            pp_menu_table.add(deleteBook);
+            deleteBook.addActionListener((ActionEvent e) -> {
+                try {
+                    String usernameSelected = tbl_loans.getValueAt(tbl_loans.getSelectedRow(), 0).toString();
+                    User user = new User(usernameSelected, "");
+                    user.delete();
+                    MainView.showJpanel(new PrestamosView(true));
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Selecciona el usuario primero");
+                }
+            });
+        }
+        tbl_loans.setComponentPopupMenu(pp_menu_table);
+
+    }
 
     public static void updateTable() throws SQLException {
-        model_table_users.setRowCount(0);
+        model_table_loans.setRowCount(0);
 
-        User user = new User();
-        ResultSet rs = user.getUsers();
+        Book book = new Book();
+        ResultSet rs = book.getLoans();
         while (rs.next()) {
-            model_table_users.addRow(new Object[]{rs.getString("username"),
-                rs.getString("full_name"),rs.getString("password") ,rs.getString("age")});
+            model_table_loans.addRow(new Object[]{
+                rs.getInt("idPrestamo"),
+                rs.getInt("UserId"),
+                rs.getString("full_name") ,
+                rs.getString("BookId"),
+                rs.getString("title"),
+                rs.getInt("year"),
+                rs.getString("author"),
+                rs.getString("category"),
+                rs.getString("language"),
+                
+            });
         }
 
     }
 
     public void edit() {
-        int selected = tbl_users.getSelectedRow();
+        int selected = tbl_loans.getSelectedRow();
         if (selected == -1) {
             JOptionPane.showMessageDialog(this, "Selecciona un registro de la tabla");
             return;
         }
 
-        String num_control = (String) tbl_users.getValueAt(selected, 0);
-        String full_name = (String) tbl_users.getValueAt(selected,1);
-        String password = (String) tbl_users.getValueAt(selected,2);
-        String age = (String) tbl_users.getValueAt(selected,3);
+        String num_control = (String) tbl_loans.getValueAt(selected, 0);
+        String full_name = (String) tbl_loans.getValueAt(selected,1);
+        String password = (String) tbl_loans.getValueAt(selected,2);
+        String age = (String) tbl_loans.getValueAt(selected,3);
        
         ModifyUserForm muf = new ModifyUserForm(num_control, full_name, password, age);
         muf.setVisible(true);
@@ -179,10 +213,10 @@ public final class PrestamosView extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JTextField book_search;
-    public static CustomComponents.KButton btn_create_prestamo;
+    public static CustomComponents.KButton btn_menu_add;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu pp_menu_table;
-    public javax.swing.JTable tbl_users;
+    public javax.swing.JTable tbl_loans;
     // End of variables declaration//GEN-END:variables
 }

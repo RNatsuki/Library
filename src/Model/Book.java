@@ -42,6 +42,10 @@ public class Book {
     public Book() {
 
     }
+    
+    public Book(int BOOK_ID) {
+        this.BOOK_ID = BOOK_ID;
+    }
 
     public void loan(String userId) {
         try {
@@ -53,15 +57,22 @@ public class Book {
 
             if (!user.exists(userId)) {
                 JOptionPane.showMessageDialog(null, "Id de usuario no existente");
+                return;
             }
 
-            if(!this.existsStock()){
+            if (!this.existsStock()) {
                 JOptionPane.showMessageDialog(null, "El libro no está en existencia");
                 return;
             }
             String query = "INSERT INTO loans(UserId,bookId) VALUES('" + userId + "','" + this.BOOK_ID + "')";
             Statement st = mysql.conn.createStatement();
             st.executeUpdate(query);
+            
+            String query2 = "UPDATE books set stock = stock-1 WHERE id = '"+this.BOOK_ID+"'";
+            Statement st2 = mysql.conn.createStatement();
+            st.executeUpdate(query2);
+            
+            
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -99,6 +110,14 @@ public class Book {
         Statement st = mysql.conn.createStatement();
         ResultSet rs = st.executeQuery(sql);
 
+        return rs;
+    }
+
+    public ResultSet getLoans() throws SQLException {
+        String query = "SELECT idPrestamo,UserId,full_name,Books.id as BookId ,title,year,author,category,language  FROM Loans JOIN Users ON Loans.UserId = Users.username "
+                + "JOIN books ON Loans.BookId = Books.id";
+        Statement st = mysql.conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
         return rs;
     }
 

@@ -44,7 +44,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane1" pref="614" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="btn_create_prestamo" min="-2" pref="158" max="-2" attributes="0"/>
+                          <Component id="btn_menu_add" min="-2" pref="158" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel1" min="-2" pref="49" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -60,7 +60,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btn_create_prestamo" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="btn_menu_add" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="book_search" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -79,25 +79,53 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tbl_users">
+            <Component class="javax.swing.JTable" name="tbl_loans">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="1">
-                    <Column editable="true" title="NUMERO CONTROL" type="java.lang.Object">
+                  <Table columnCount="9" rowCount="1">
+                    <Column editable="true" title="ID" type="java.lang.Object">
                       <Data value="El Principito"/>
                     </Column>
-                    <Column editable="true" title="NOMBRE" type="java.lang.Object">
+                    <Column editable="true" title="NUM CONTROL" type="java.lang.Object">
                       <Data value="Antoine de Saint-Exupery"/>
                     </Column>
-                    <Column editable="true" title="CONTRASE&#xd1;A" type="java.lang.Object">
-                      <Data value="2016"/>
-                    </Column>
-                    <Column editable="true" title="EDAD" type="java.lang.Object"/>
+                    <Column editable="true" title="NOMBRE" type="java.lang.Object"/>
+                    <Column editable="true" title="LIBRO ID" type="java.lang.Object"/>
+                    <Column editable="true" title="TITULO" type="java.lang.Object"/>
+                    <Column editable="true" title="A&#xd1;O" type="java.lang.Object"/>
+                    <Column editable="true" title="AUTOR" type="java.lang.Object"/>
+                    <Column editable="true" title="CATEGORIA" type="java.lang.Object"/>
+                    <Column editable="true" title="IDIOMA" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -130,12 +158,12 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="CustomComponents.KButton" name="btn_create_prestamo">
+        <Component class="CustomComponents.KButton" name="btn_menu_add">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nuevo Usuario"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_create_prestamoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_menu_addActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

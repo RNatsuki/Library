@@ -47,10 +47,9 @@ public class User {
     }
 
     public boolean exists(String id) throws SQLException {
-        String query = "SELECT username FROM users WHERE username = '" + this.getUsername()+"'";
+        String query = "SELECT username FROM users WHERE username = '" +id+"'";
         Statement st = mysql.conn.createStatement();
         ResultSet rs = st.executeQuery(query);
-
         while (rs.next()) {
             return true;
         }
