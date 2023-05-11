@@ -21,7 +21,7 @@ public class PrestamoForm extends javax.swing.JFrame {
      * Creates new form AddUsersForm
      */
     FieldsValidator validate = new FieldsValidator();
-    
+
     public PrestamoForm() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -122,8 +122,8 @@ public class PrestamoForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_add_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_userActionPerformed
-       save();
-       
+        save();
+
     }//GEN-LAST:event_btn_add_userActionPerformed
 
     private void txt_book_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_book_idKeyTyped
@@ -131,7 +131,9 @@ public class PrestamoForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_book_idKeyTyped
 
     private void txt_num_controlKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_num_controlKeyPressed
-        
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.txt_book_id.requestFocus();
+        }
     }//GEN-LAST:event_txt_num_controlKeyPressed
 
     private void txt_book_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_book_idKeyPressed
@@ -141,34 +143,33 @@ public class PrestamoForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_book_idKeyPressed
 
     private void btn_add_userKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_add_userKeyPressed
-       if (evt.getKeyChar() == evt.VK_ENTER) {
+        if (evt.getKeyChar() == evt.VK_ENTER) {
             save();
         }
     }//GEN-LAST:event_btn_add_userKeyPressed
 
-    void save(){
+    void save() {
         Object[] array = {
-           txt_num_control,
-           txt_book_id
-       };
-       
+            txt_num_control,
+            txt_book_id
+        };
+
         if (!validate.validateBlank(array)) {
             JOptionPane.showMessageDialog(this, "Rellena todos los campos");
             return;
         }
-        
+
         Book book = new Book(Integer.parseInt(txt_book_id.getText()));
-        
+
         book.loan(txt_num_control.getText());
-        
+
         MainView.showJpanel(new PrestamosView(true));
-       
+
     }
-    
+
     /**
      * @param args the command line arguments
      */
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;

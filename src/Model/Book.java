@@ -114,7 +114,8 @@ public class Book {
     }
 
     public ResultSet getLoans() throws SQLException {
-        String query = "SELECT idPrestamo,UserId,full_name,Books.id as BookId ,title,year,author,category,language  FROM Loans JOIN Users ON Loans.UserId = Users.username "
+        String query = "SELECT idPrestamo,UserId,full_name,Books.id as BookId ,title,year,author,category,language "
+                + "FROM Loans JOIN Users ON Loans.UserId = Users.username "
                 + "JOIN books ON Loans.BookId = Books.id";
         Statement st = mysql.conn.createStatement();
         ResultSet rs = st.executeQuery(query);
@@ -146,6 +147,15 @@ public class Book {
 
     }
 
+    
+    public void returnBook() throws SQLException{
+        String query = "UPADATE books SET stock = stock+1 WHERE id = '"+getBOOK_ID()+"'";
+        Statement st = mysql.conn.createStatement();
+        st.executeUpdate(query);
+    }
+    
+    
+    
     public int getBOOK_ID() {
         return BOOK_ID;
     }

@@ -68,7 +68,7 @@ public final class PrestamosView extends javax.swing.JPanel {
         tbl_loans.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbl_loans);
 
-        btn_menu_add.setText("Nuevo Usuario");
+        btn_menu_add.setText("Devolver Libro");
         btn_menu_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_menu_addActionPerformed(evt);
@@ -130,14 +130,25 @@ public final class PrestamosView extends javax.swing.JPanel {
             MysqlConnection mysql = new MysqlConnection();
 
             String search = book_search.getText();
-            String query = "SELECT * FROM users WHERE (username LIKE '%" + search + "%' OR password LIKE '%" + search
-                    + "%' OR full_name LIKE '%" + search + "%' OR age LIKE '%" + search + "%') AND role != 'admin' ";
+            String query = "SELECT idPrestamo,UserId,full_name,Books.id as BookId ,title,year,author,category,language "
+                + "FROM Loans JOIN Users ON Loans.UserId = Users.username "
+                + "JOIN books ON Loans.BookId = Books.id WHERE idPrestamo  LIKE '%"+search+"%' OR  UserId LIKE '%"+search+"%' OR full_name  LIKE '%"+search+"%' ";
 
             Statement st = mysql.conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                model_table_loans.addRow(new Object[]{rs.getString("username"),
-                rs.getString("full_name"),rs.getString("password") ,rs.getString("age")});
+                model_table_loans.addRow(new Object[]{
+                rs.getInt("idPrestamo"),
+                rs.getInt("UserId"),
+                rs.getString("full_name") ,
+                rs.getString("BookId"),
+                rs.getString("title"),
+                rs.getInt("year"),
+                rs.getString("author"),
+                rs.getString("category"),
+                rs.getString("language"),
+                
+            });
             }
 
         } catch (SQLException ex) {

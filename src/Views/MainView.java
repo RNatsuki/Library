@@ -260,7 +260,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
     private void btn_devolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_devolucionesActionPerformed
-        showJpanel(new DevolucionesView());
+        showJpanel(new DevolucionesView(isAdmin));
     }//GEN-LAST:event_btn_devolucionesActionPerformed
 
 
