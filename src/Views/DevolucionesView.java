@@ -42,7 +42,6 @@ public final class DevolucionesView extends javax.swing.JPanel {
         }
 
     }
-
  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -68,7 +67,7 @@ public final class DevolucionesView extends javax.swing.JPanel {
         tbl_loans.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbl_loans);
 
-        btn_menu_add.setText("Nuevo Prestamo");
+        btn_menu_add.setText("Devolver Libro");
         btn_menu_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_menu_addActionPerformed(evt);
@@ -159,8 +158,8 @@ public final class DevolucionesView extends javax.swing.JPanel {
     }//GEN-LAST:event_book_searchKeyReleased
 
     private void btn_menu_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menu_addActionPerformed
-        PrestamoForm pf = new PrestamoForm();
-        pf.setVisible(true);
+        DevolucionesForm df = new DevolucionesForm();
+        df.setVisible(true);
     }//GEN-LAST:event_btn_menu_addActionPerformed
 
     public void initializePopUpMenu() {
@@ -187,7 +186,7 @@ public final class DevolucionesView extends javax.swing.JPanel {
         model_table_loans.setRowCount(0);
 
         Book book = new Book();
-        ResultSet rs = book.getLoans();
+        ResultSet rs = book.getReturns();
         while (rs.next()) {
             model_table_loans.addRow(new Object[]{
                 rs.getInt("idPrestamo"),
@@ -198,7 +197,6 @@ public final class DevolucionesView extends javax.swing.JPanel {
                 rs.getInt("year"),
                 rs.getString("author"),
                 rs.getString("category"),
-                rs.getString("language"),
                 
             });
         }

@@ -18,6 +18,7 @@ public class MainView extends javax.swing.JFrame {
         showJpanel(new PrincipalView());
         this.setLocationRelativeTo(null);
         this.isAdmin = isAdmin;
+        
         if (!isAdmin) {
             this.btn_prestamos.setEnabled(false);
             this.btn_devoluciones.setEnabled(false);

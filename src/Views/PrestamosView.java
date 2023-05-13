@@ -68,7 +68,7 @@ public final class PrestamosView extends javax.swing.JPanel {
         tbl_loans.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbl_loans);
 
-        btn_menu_add.setText("Devolver Libro");
+        btn_menu_add.setText("Nuevo Prestamo");
         btn_menu_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_menu_addActionPerformed(evt);
