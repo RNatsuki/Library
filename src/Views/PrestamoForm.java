@@ -45,6 +45,7 @@ public class PrestamoForm extends javax.swing.JFrame {
         btn_add_user = new CustomComponents.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("PRESTA UN LIBRO :/");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setBorder(javax.swing.BorderFactory.createEtchedBorder());

@@ -8,6 +8,7 @@ import Middlewares.FieldsValidator;
 import Model.Book;
 import Model.User;
 import java.awt.HeadlessException;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,7 @@ public class DevolucionesForm extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         txt_id_prestamo.requestFocus();
+        this.txt_id_prestamo.requestFocus();
     }
 
     /**
@@ -45,6 +47,7 @@ public class DevolucionesForm extends javax.swing.JFrame {
         btn_add_user = new CustomComponents.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("DEVUELVE EL LIBRO PRESTADO");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -109,11 +112,13 @@ public class DevolucionesForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_add_userActionPerformed
 
     private void txt_id_prestamoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_id_prestamoKeyPressed
-
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            btn_add_user.requestFocus();
+        }
     }//GEN-LAST:event_txt_id_prestamoKeyPressed
 
     private void btn_add_userKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_add_userKeyPressed
-        if (evt.getKeyChar() == evt.VK_ENTER) {
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             returnBook();
         }
     }//GEN-LAST:event_btn_add_userKeyPressed
@@ -127,10 +132,6 @@ public class DevolucionesForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Rellena todos los campos");
             return;
         }
-
-        
-        
-        
         Book book = new Book();
 
         try {

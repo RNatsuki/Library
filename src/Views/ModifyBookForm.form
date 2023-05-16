@@ -7,7 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="AGREGA TU LIBRO"/>
+    <Property name="title" type="java.lang.String" value="EDITA TU LIBRO"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -136,23 +136,37 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="book_title">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_titleKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="book_year">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="book_yearActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_yearKeyPressed"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_yearKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="book_author">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_authorKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="book_category">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_categoryKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="book_edition">
       <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_editionKeyPressed"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_editionKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="book_language">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="book_languageKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_Id">
       <Properties>
@@ -198,6 +212,7 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_submitActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btn_submitKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">

@@ -29,6 +29,7 @@ public class ModifyBookForm extends javax.swing.JFrame {
         this.book_category.setText(category);
         this.book_edition.setText(String.valueOf(edition));
         this.book_language.setText(language);
+        this.book_title.requestFocus();
     }
 
     public ModifyBookForm() {
@@ -64,7 +65,7 @@ public class ModifyBookForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("AGREGA TU LIBRO");
+        setTitle("EDITA TU LIBRO");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -80,20 +81,50 @@ public class ModifyBookForm extends javax.swing.JFrame {
             }
         });
 
+        book_title.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_titleKeyPressed(evt);
+            }
+        });
+
         book_year.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 book_yearActionPerformed(evt);
             }
         });
         book_year.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_yearKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 book_yearKeyTyped(evt);
             }
         });
 
+        book_author.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_authorKeyPressed(evt);
+            }
+        });
+
+        book_category.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_categoryKeyPressed(evt);
+            }
+        });
+
         book_edition.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_editionKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 book_editionKeyTyped(evt);
+            }
+        });
+
+        book_language.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_languageKeyPressed(evt);
             }
         });
 
@@ -116,6 +147,11 @@ public class ModifyBookForm extends javax.swing.JFrame {
         btn_submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_submitActionPerformed(evt);
+            }
+        });
+        btn_submit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_submitKeyPressed(evt);
             }
         });
 
@@ -200,6 +236,103 @@ public class ModifyBookForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
+        updateBook();
+    }//GEN-LAST:event_btn_submitActionPerformed
+
+    private void book_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_idKeyTyped
+        validator.onlyNumbers(evt);
+    }//GEN-LAST:event_book_idKeyTyped
+
+    private void book_yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_book_yearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_book_yearActionPerformed
+
+    private void book_yearKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_yearKeyTyped
+        validator.onlyNumbers(evt);
+        int year = this.book_year.getText().length();
+
+        if (year > 3) {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "El año solo puede tener 4 caracteres");
+            return;
+        }
+
+    }//GEN-LAST:event_book_yearKeyTyped
+
+    private void book_editionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_editionKeyTyped
+        validator.onlyNumbers(evt);
+    }//GEN-LAST:event_book_editionKeyTyped
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        BooksView.btn_menu_add.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void book_titleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_titleKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_year.requestFocus();
+        }
+    }//GEN-LAST:event_book_titleKeyPressed
+
+    private void book_yearKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_yearKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_author.requestFocus();
+        }
+    }//GEN-LAST:event_book_yearKeyPressed
+
+    private void book_authorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_authorKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_category.requestFocus();
+        }
+    }//GEN-LAST:event_book_authorKeyPressed
+
+    private void book_categoryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_categoryKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_edition.requestFocus();
+        }
+    }//GEN-LAST:event_book_categoryKeyPressed
+
+    private void book_editionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_editionKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_language.requestFocus();
+        }
+    }//GEN-LAST:event_book_editionKeyPressed
+
+    private void book_languageKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_languageKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.btn_submit.requestFocus();
+        }
+    }//GEN-LAST:event_book_languageKeyPressed
+
+    private void btn_submitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_submitKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            updateBook();
+        }
+    }//GEN-LAST:event_btn_submitKeyPressed
+
+    int getStockById(int id) {
+        int stock = 0;
+        for (int i = 0; i < BooksView.model_table_books.getRowCount(); i++) {
+
+            try {
+
+                int id_table = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 0).toString());
+
+                if (id == id_table) {
+                    stock = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 7).toString());
+                }
+
+                System.out.println(stock);
+            } catch (NullPointerException e) {
+                return 0;
+            }
+
+        }
+
+        return stock;
+
+    }
+
+    void updateBook() {
 
         try {
             Object[] FIELDS = {
@@ -240,62 +373,10 @@ public class ModifyBookForm extends javax.swing.JFrame {
             System.out.println("Book saved");
             BooksView.updateTable();
 
-            JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctamente");
+            JOptionPane.showMessageDialog(this, "EL Libro Fue Editado Correctamente");
         } catch (SQLException ex) {
             Logger.getLogger(ModifyBookForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }//GEN-LAST:event_btn_submitActionPerformed
-
-    private void book_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_idKeyTyped
-        validator.onlyNumbers(evt);
-    }//GEN-LAST:event_book_idKeyTyped
-
-    private void book_yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_book_yearActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_book_yearActionPerformed
-
-    private void book_yearKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_yearKeyTyped
-        validator.onlyNumbers(evt);
-        int year = this.book_year.getText().length();
-
-        if (year > 3) {
-            evt.consume();
-            JOptionPane.showMessageDialog(this, "El año solo puede tener 4 caracteres");
-            return;
-        }
-
-    }//GEN-LAST:event_book_yearKeyTyped
-
-    private void book_editionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_editionKeyTyped
-        validator.onlyNumbers(evt);
-    }//GEN-LAST:event_book_editionKeyTyped
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        BooksView.btn_menu_add.setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
-
-    int getStockById(int id) {
-        int stock = 0;
-        for (int i = 0; i < BooksView.model_table_books.getRowCount(); i++) {
-
-            try {
-
-                int id_table = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 0).toString());
-
-                if (id == id_table) {
-                    stock = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 7).toString());
-                }
-
-                System.out.println(stock);
-            } catch (NullPointerException e) {
-                return 0;
-            }
-
-        }
-
-        return stock;
-
     }
 
     /**

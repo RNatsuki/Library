@@ -6,12 +6,7 @@ package Views;
 
 import Middlewares.FieldsValidator;
 import Model.Book;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -73,8 +68,17 @@ public class AddBookForm extends javax.swing.JFrame {
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         book_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_idKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 book_idKeyTyped(evt);
+            }
+        });
+
+        book_title.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_titleKeyPressed(evt);
             }
         });
 
@@ -84,14 +88,38 @@ public class AddBookForm extends javax.swing.JFrame {
             }
         });
         book_year.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_yearKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 book_yearKeyTyped(evt);
             }
         });
 
+        book_author.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_authorKeyPressed(evt);
+            }
+        });
+
+        book_category.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_categoryKeyPressed(evt);
+            }
+        });
+
         book_edition.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_editionKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 book_editionKeyTyped(evt);
+            }
+        });
+
+        book_language.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_languageKeyPressed(evt);
             }
         });
 
@@ -116,6 +144,11 @@ public class AddBookForm extends javax.swing.JFrame {
                 btn_submitActionPerformed(evt);
             }
         });
+        btn_submit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_submitKeyPressed(evt);
+            }
+        });
 
         jLabel1.setText("AGREGA TU LIBRO");
 
@@ -129,6 +162,9 @@ public class AddBookForm extends javax.swing.JFrame {
         lbl_language1.setText("Stock");
 
         book_stock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                book_stockKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 book_stockKeyTyped(evt);
             }
@@ -226,53 +262,7 @@ public class AddBookForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
-
-        try {
-            Object[] FIELDS = {
-                this.book_id,
-                this.book_author,
-                this.book_category,
-                this.book_edition,
-                this.book_language,
-                this.book_title,
-                this.book_year,
-                this.book_stock
-            };
-
-            if (!validator.validateBlank(FIELDS)) {
-                JOptionPane.showMessageDialog(this, "Rellene todos los campos");
-                return;
-            }
-
-            Book book;
-            book = new Book(
-                    Integer.parseInt(book_id.getText()),
-                    book_title.getText(),
-                    Integer.parseInt(book_year.getText()),
-                    book_author.getText(),
-                    book_category.getText(),
-                    Integer.parseInt(book_edition.getText()),
-                    book_language.getText(),
-                    Integer.parseInt(this.book_stock.getText())
-            );
-
-            try {
-                book.save();
-                MainView.showJpanel(new BooksView(true));
-
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "ID de libro Existente");
-                return;
-            }
-
-            System.out.println("Book saved");
-            BooksView.updateTable();
-
-            JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctamente");
-        } catch (SQLException ex) {
-            Logger.getLogger(AddBookForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        saveBook();
     }//GEN-LAST:event_btn_submitActionPerformed
 
     private void book_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_idKeyTyped
@@ -319,6 +309,60 @@ public class AddBookForm extends javax.swing.JFrame {
         validator.onlyNumbers(evt);
     }//GEN-LAST:event_book_stockKeyTyped
 
+    private void book_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_idKeyPressed
+       if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_title.requestFocus();
+        }
+    }//GEN-LAST:event_book_idKeyPressed
+
+    private void book_titleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_titleKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_year.requestFocus();
+        }
+    }//GEN-LAST:event_book_titleKeyPressed
+
+    private void book_yearKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_yearKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_author.requestFocus();
+        }
+    }//GEN-LAST:event_book_yearKeyPressed
+
+    private void book_authorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_authorKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_category.requestFocus();
+        }
+    }//GEN-LAST:event_book_authorKeyPressed
+
+    private void book_categoryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_categoryKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_edition.requestFocus();
+        }
+    }//GEN-LAST:event_book_categoryKeyPressed
+
+    private void book_editionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_editionKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_language.requestFocus();
+        }
+    }//GEN-LAST:event_book_editionKeyPressed
+
+    private void book_languageKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_languageKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.book_stock.requestFocus();
+        }
+    }//GEN-LAST:event_book_languageKeyPressed
+
+    private void book_stockKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_book_stockKeyPressed
+       if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.btn_submit.requestFocus();
+        }
+    }//GEN-LAST:event_book_stockKeyPressed
+
+    private void btn_submitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_submitKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            saveBook();
+        }
+    }//GEN-LAST:event_btn_submitKeyPressed
+
     int getStockById(int id) {
         int stock = 0;
         for (int i = 0; i < BooksView.model_table_books.getRowCount(); i++) {
@@ -340,6 +384,51 @@ public class AddBookForm extends javax.swing.JFrame {
 
         return stock;
 
+    }
+    
+    
+    void saveBook(){
+        Object[] FIELDS = {
+            this.book_id,
+            this.book_author,
+            this.book_category,
+            this.book_edition,
+            this.book_language,
+            this.book_title,
+            this.book_year,
+            this.book_stock
+        };
+        if (!validator.validateBlank(FIELDS)) {
+            JOptionPane.showMessageDialog(this, "Rellene todos los campos");
+            return;
+        }
+        Book book;
+        try {
+            book = new Book(
+                    Integer.parseInt(book_id.getText()),
+                    book_title.getText(),
+                    Integer.parseInt(book_year.getText()),
+                    book_author.getText(),
+                    book_category.getText(),
+                    Integer.parseInt(book_edition.getText()),
+                    book_language.getText(),
+                    Integer.parseInt(this.book_stock.getText())
+            );
+            
+            try {
+                book.save();
+                MainView.showJpanel(new BooksView(true));
+                System.out.println("Book saved");
+                BooksView.updateTable();
+                JOptionPane.showMessageDialog(this, "EL Libro Fue Agregado Correctamente");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "ID de libro Existente");
+                return;
+            }
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Haz ingresado un número demasiado grande");
+        }
     }
 
     /**

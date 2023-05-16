@@ -50,6 +50,7 @@ public class AddUsersForm extends javax.swing.JFrame {
         btn_add_user = new CustomComponents.KButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CREA UN USUARIO :)");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setBorder(javax.swing.BorderFactory.createEtchedBorder());

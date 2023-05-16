@@ -28,6 +28,8 @@ public class ModifyUserForm extends javax.swing.JFrame {
         this.user_confirm_password.setText(password);
         this.user_age.setText(age);
 
+        this.user_password.requestFocus();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -66,9 +68,32 @@ public class ModifyUserForm extends javax.swing.JFrame {
             }
         });
 
+        user_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                user_passwordKeyPressed(evt);
+            }
+        });
+
         user_confirm_password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 user_confirm_passwordActionPerformed(evt);
+            }
+        });
+        user_confirm_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                user_confirm_passwordKeyPressed(evt);
+            }
+        });
+
+        user_full_name.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                user_full_nameKeyPressed(evt);
+            }
+        });
+
+        user_age.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                user_ageKeyPressed(evt);
             }
         });
 
@@ -87,6 +112,11 @@ public class ModifyUserForm extends javax.swing.JFrame {
         btn_submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_submitActionPerformed(evt);
+            }
+        });
+        btn_submit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btn_submitKeyPressed(evt);
             }
         });
 
@@ -159,6 +189,81 @@ public class ModifyUserForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_submitActionPerformed
+        updateUser();
+
+    }//GEN-LAST:event_btn_submitActionPerformed
+
+    private void user_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_user_idKeyTyped
+        validator.onlyNumbers(evt);
+    }//GEN-LAST:event_user_idKeyTyped
+
+    private void user_confirm_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_confirm_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_user_confirm_passwordActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btn_submitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_submitKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            updateUser();
+
+        }
+    }//GEN-LAST:event_btn_submitKeyPressed
+
+    private void user_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_user_passwordKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.user_confirm_password.requestFocus();
+
+        }
+    }//GEN-LAST:event_user_passwordKeyPressed
+
+    private void user_confirm_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_user_confirm_passwordKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.user_full_name.requestFocus();
+
+        }
+    }//GEN-LAST:event_user_confirm_passwordKeyPressed
+
+    private void user_full_nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_user_full_nameKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.user_age.requestFocus();
+
+        }
+    }//GEN-LAST:event_user_full_nameKeyPressed
+
+    private void user_ageKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_user_ageKeyPressed
+        if (evt.getKeyChar() == evt.VK_ENTER) {
+            this.btn_submit.requestFocus();
+
+        }
+    }//GEN-LAST:event_user_ageKeyPressed
+
+    int getStockById(int id) {
+        int stock = 0;
+        for (int i = 0; i < BooksView.model_table_books.getRowCount(); i++) {
+
+            try {
+
+                int id_table = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 0).toString());
+
+                if (id == id_table) {
+                    stock = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 7).toString());
+                }
+
+                System.out.println(stock);
+            } catch (NullPointerException e) {
+                return 0;
+            }
+
+        }
+
+        return stock;
+
+    }
+
+    void updateUser() {
 
         try {
             Object[] FIELDS = {
@@ -191,44 +296,7 @@ public class ModifyUserForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ModifyUserForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }//GEN-LAST:event_btn_submitActionPerformed
-
-    private void user_idKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_user_idKeyTyped
-        validator.onlyNumbers(evt);
-    }//GEN-LAST:event_user_idKeyTyped
-
-    private void user_confirm_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_confirm_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_user_confirm_passwordActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
-    }//GEN-LAST:event_formWindowClosed
-
-    int getStockById(int id) {
-        int stock = 0;
-        for (int i = 0; i < BooksView.model_table_books.getRowCount(); i++) {
-
-            try {
-
-                int id_table = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 0).toString());
-
-                if (id == id_table) {
-                    stock = Integer.parseInt(BooksView.model_table_books.getValueAt(i, 7).toString());
-                }
-
-                System.out.println(stock);
-            } catch (NullPointerException e) {
-                return 0;
-            }
-
-        }
-
-        return stock;
-
     }
-
     /**
      * @param args the command line arguments
      */

@@ -1,9 +1,7 @@
 package Model;
 
-import java.sql.Connection;
 import MysqlConn.MysqlConnection;
 import java.sql.Statement;
-import java.util.Stack;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -24,7 +22,6 @@ public class Book {
     int EDITION;
     String LANGUAJE;
     int STOCK;
-    boolean isDigital;
 
     public Book(int BOOK_ID, String TITLE, int PUBLISHED_YEAR, String AUTHOR, String CATEGORY, int EDITION,
             String LANGUAJE, int stock) {
@@ -49,10 +46,7 @@ public class Book {
 
     public void loan(String userId) {
         try {
-            if (!this.exists()) {
-                JOptionPane.showMessageDialog(null, "Id de libro no existente");
-                return;
-            }
+
             User user = new User();
 
             if (!user.exists(userId)) {
@@ -60,17 +54,23 @@ public class Book {
                 return;
             }
 
+            if (!this.exists()) {
+                JOptionPane.showMessageDialog(null, "Id de libro no existente");
+                return;
+            }
+
             if (!this.existsStock()) {
                 JOptionPane.showMessageDialog(null, "El libro no está en existencia");
                 return;
             }
+            
             String query = "INSERT INTO loans(UserId,bookId) VALUES('" + userId + "','" + this.BOOK_ID + "')";
             Statement st = mysql.conn.createStatement();
             st.executeUpdate(query);
 
             String query2 = "UPDATE books set stock = stock-1 WHERE id = '" + this.BOOK_ID + "'";
             Statement st2 = mysql.conn.createStatement();
-            st.executeUpdate(query2);
+            st2.executeUpdate(query2);
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -122,8 +122,9 @@ public class Book {
     }
 
     public ResultSet getReturns() throws SQLException {
-        String query = "SELECT idPrestamo,UserId,full_name,Books.id as BookId ,title,year,author,category,language,returned FROM Loans JOIN Users ON Loans.UserId = Users.username JOIN books\n"
-                + "ON Loans.BookId = Books.id WHERE returned = 1";
+        String query = """
+                       SELECT idPrestamo,UserId,full_name,Books.id as BookId ,title,year,author,category,language,returned FROM Loans JOIN Users ON Loans.UserId = Users.username JOIN books
+                       ON Loans.BookId = Books.id WHERE returned = 1""";
         Statement st = mysql.conn.createStatement();
         ResultSet rs = st.executeQuery(query);
         return rs;
@@ -135,7 +136,7 @@ public class Book {
                 + this.getAUTHOR() + "','" + this.getCATEGORY() + "','" + this.getEDITION() + "','" + this.getLANGUAJE()
                 + "','" + this.getSTOCK() + "')";
         Statement st = mysql.conn.createStatement();
-        int rs = st.executeUpdate(query);
+        st.executeUpdate(query);
 
     }
 
@@ -143,7 +144,7 @@ public class Book {
         //update set stock = stock
         String query = "UPDATE books set title = '" + this.getTITLE() + "', year = '" + this.getPUBLISHED_YEAR() + "', author = '" + this.getAUTHOR() + "', category = '" + this.getCATEGORY() + "', edition = '" + this.getEDITION() + "', language = '" + this.getLANGUAJE() + "', stock = stock WHERE id = '" + this.getBOOK_ID() + "' ";
         Statement st = mysql.conn.createStatement();
-        int rs = st.executeUpdate(query);
+        st.executeUpdate(query);
     }
 
     public int deleteById(int id) throws SQLException {
@@ -157,21 +158,19 @@ public class Book {
     public void returnBook(int idPrestamo) throws SQLException {
 
         //is returned
-        String queryIsReturned = "SELECT returned FROM loans WHERE idPrestamo = '"+idPrestamo+"'";
+        String queryIsReturned = "SELECT returned FROM loans WHERE idPrestamo = '" + idPrestamo + "'";
         Statement stReturned = mysql.conn.createStatement();
         ResultSet rsReturned = stReturned.executeQuery(queryIsReturned);
         int returned = 0;
-        while (rsReturned.next()) {            
+        while (rsReturned.next()) {
             returned = rsReturned.getInt("returned");
         }
-        
+
         if (returned == 1) {
-            JOptionPane.showMessageDialog(null,"Este prestamo ya ha sido devuelto");
+            JOptionPane.showMessageDialog(null, "Este prestamo ya ha sido devuelto");
             return;
         }
-        
-        
-        
+
         String queryGetBookId = "SELECT BookId from loans WHERE idPrestamo = '" + idPrestamo + "'";
         Statement stSearch = mysql.conn.createStatement();
         ResultSet rs = stSearch.executeQuery(queryGetBookId);
@@ -185,9 +184,9 @@ public class Book {
         Statement st = mysql.conn.createStatement();
         st.executeUpdate(query);
 
-        String query2 = "UPDATE loans set returned = 1 WHERE idPrestamo = '"+idPrestamo+"'";
+        String query2 = "UPDATE loans set returned = 1 WHERE idPrestamo = '" + idPrestamo + "'";
         Statement st2 = mysql.conn.createStatement();
-        st.executeUpdate(query2);
+        st2.executeUpdate(query2);
 
     }
 
